@@ -1,0 +1,24 @@
+Neos:
+  Form:
+    presets:
+      'fusion':
+        title: 'Fusion based Form Elements'
+        parentPreset: 'default'
+        formElementTypes:
+          'Neos.Form:Base':
+            renderingOptions:
+              templatePathPattern: ~
+              partialPathPattern: ~
+              layoutPathPattern: ~
+              fusionPrototype: 'TODO'
+          'Neos.Form:Form':
+            rendererClassName: 'Wwwision\Form\FusionPreset\FusionFormRenderer'
+
+#  Neos:
+#    fusion:
+#      autoInclude:
+#        'Wwwision.Form.FusionPreset': true
+
+  Fusion:
+    defaultContext:
+      'FusionPreset.Validation': 'Wwwision\Form\FusionPreset\Eel\Helper\ValidationHelper'

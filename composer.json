@@ -1,0 +1,19 @@
+{
+    "description": "Flow Form Framework preset for Fusion based Form rendering",
+    "type": "neos-package",
+    "name": "wwwision/form-fusionpreset",
+    "require": {
+        "neos/neos": "^4.1",
+        "neos/form": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wwwision\\Form\\FusionPreset\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Wwwision.Form.FusionPreset"
+        }
+    }
+}

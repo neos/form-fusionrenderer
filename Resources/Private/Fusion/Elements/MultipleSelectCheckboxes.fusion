@@ -1,0 +1,4 @@
+prototype(Neos.Form:MultipleSelectCheckboxes) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+    field.tagName = 'p'
+    field.content = 'MultipleSelectCheckboxes not yet implemented'
+}

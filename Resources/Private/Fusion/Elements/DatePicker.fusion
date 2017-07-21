@@ -1,0 +1,3 @@
+prototype(Neos.Form:DatePicker) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+    field.attributes.type = 'date'
+}

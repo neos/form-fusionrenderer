@@ -1,0 +1,3 @@
+prototype(Neos.Form:MultiLineText) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+    field.tagName = 'textarea'
+}

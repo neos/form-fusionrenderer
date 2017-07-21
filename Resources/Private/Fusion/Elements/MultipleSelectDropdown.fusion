@@ -1,0 +1,4 @@
+prototype(Neos.Form:MultipleSelectDropdown) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+    field.tagName = 'p'
+    field.content = 'MultipleSelectDropdown not yet implemented'
+}

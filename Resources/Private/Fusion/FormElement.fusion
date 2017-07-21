@@ -1,0 +1,44 @@
+prototype(Wwwision.Form.FusionPreset:FormElement) < prototype(Neos.Fusion:Array) {
+    label = Neos.Fusion:Tag {
+        tagName = 'label'
+        attributes {
+            for = ${element.uniqueIdentifier}
+        }
+        content = ${element.label}
+    }
+    field = Neos.Fusion:Tag {
+        tagName = 'input'
+        attributes {
+            id = ${element.uniqueIdentifier}
+            placeholder = ${element.properties.placeholder}
+            name = ${'--' + formRuntime.identifier + '[' + element.identifier + ']'}
+            value = ${FusionPreset.Validation.value(request, element.identifier)}
+        }
+        @process.wrap = ${'<p>' + value + '</p>'}
+    }
+    validationErrors = Neos.Fusion:Tag {
+        tagName = 'span'
+        attributes {
+            class = 'help-inline'
+        }
+        content = Neos.Fusion:Collection {
+            collection = ${FusionPreset.Validation.validationErrors(request, element.identifier)}
+            itemName = 'error'
+            itemRenderer =  ${error}
+        }
+    }
+    elementDescription = Neos.Fusion:Tag {
+        tagName = 'span'
+        attributes {
+            class = 'help-block'
+        }
+        content = ${element.properties.elementDescription}
+        @if.condition = ${element.properties.elementDescription}
+    }
+
+}
+
+prototype(Wwwision.Form.FusionPreset:FormElementWrapping) {
+    @class = 'Wwwision\\Form\\FusionPreset\\Fusion\\FormElementWrappingImplementation'
+    value = ${value}
+}
