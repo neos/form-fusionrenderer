@@ -1,14 +1,11 @@
 <?php
 namespace Wwwision\Form\FusionPreset\Fusion;
 
-use Neos\Form\Core\Model\Renderable\RenderableInterface;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
-use Neos\Fusion\FusionObjects\ArrayImplementation;
-use org\bovigo\vfs\vfsStream;
 
-class FormElementWrappingImplementation extends AbstractFusionObject
+class RenderCallbacksImplementation extends AbstractFusionObject
 {
     private function getValue(): string
     {

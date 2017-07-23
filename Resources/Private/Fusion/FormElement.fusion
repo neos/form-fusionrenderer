@@ -5,11 +5,14 @@ prototype(Wwwision.Form.FusionPreset:FormElement) < prototype(Neos.Fusion:Array)
             for = ${element.uniqueIdentifier}
         }
         content = ${element.label}
+        content.@process.requiredFlag = ${value + '<span class="required">*</span>'}
+        content.@process.requiredFlag.@if.isRequired = ${element.required}
     }
     field = Neos.Fusion:Tag {
         tagName = 'input'
         attributes {
             id = ${element.uniqueIdentifier}
+            type = 'text'
             placeholder = ${element.properties.placeholder}
             name = ${'--' + formRuntime.identifier + '[' + element.identifier + ']'}
             value = ${FusionPreset.Validation.value(request, element.identifier)}
@@ -36,9 +39,9 @@ prototype(Wwwision.Form.FusionPreset:FormElement) < prototype(Neos.Fusion:Array)
         @if.condition = ${element.properties.elementDescription}
     }
 
-}
+    @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
+        formRuntime = ${formRuntime}
+        formElement = ${element}
+    }
 
-prototype(Wwwision.Form.FusionPreset:FormElementWrapping) {
-    @class = 'Wwwision\\Form\\FusionPreset\\Fusion\\FormElementWrappingImplementation'
-    value = ${value}
 }

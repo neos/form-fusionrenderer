@@ -1,0 +1,21 @@
+prototype(Neos.Form:Page) < prototype(Neos.Fusion:Tag) {
+    tagName = 'fieldset'
+    content = Neos.Fusion:Array {
+        legend = Neos.Fusion:Tag {
+            tagName = 'legend'
+            content = ${page.label}
+            @if.hasLabel = ${page.label}
+        }
+        elements = Neos.Fusion:Collection {
+            collection = ${page.renderablesRecursively}
+            itemName = 'element'
+            itemRenderer = Neos.Fusion:Renderer {
+                type = ${element.type}
+            }
+        }
+    }
+    @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
+        formRuntime = ${formRuntime}
+        formElement = ${page}
+    }
+}

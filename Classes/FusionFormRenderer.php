@@ -2,7 +2,6 @@
 namespace Wwwision\Form\FusionPreset;
 
 use Neos\Flow\Mvc\Controller\ControllerContext;
-use Neos\Form\Core\Model\Renderable\RenderableInterface;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Renderer\RendererInterface;
 use Neos\Form\Core\Runtime\FormRuntime;

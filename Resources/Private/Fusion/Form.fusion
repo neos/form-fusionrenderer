@@ -1,94 +1,42 @@
 prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
-    @context.identifier = 'todo'
-
     tagName = 'form'
 
     attributes = Neos.Fusion:Attributes {
         method = 'post'
         enctype = 'multipart/form-data'
-        id = ${identifier}
-
-        action = ${'#' + identifier}
+        id = ${formRuntime.identifier}
+        action = ${request.httpRequest.uri + '#' + formRuntime.identifier}
     }
 
-    content = Wwwision.Form.FusionPreset:FormRenderer
+    content = Neos.Fusion:Array {
+        formStateHiddenField = Wwwision.Form.FusionPreset:FormStateHiddenField
+        pages = Neos.Fusion:Collection {
+            collection = ${[formRuntime.currentPage]}
+            itemName = 'page'
+            itemRenderer = Neos.Fusion:Renderer {
+                type = ${page.type}
+            }
+        }
+        navigation = Wwwision.Form.FusionPreset:FormNavigation
+    }
 }
 
 prototype(Neos.Form:FormEditMode) < prototype(Neos.Form:Form) {
-    content.pages.collection = ${formRuntime.pages}
     content.navigation >
-    content.pages.itemRenderer {
-        @process.wrapElement = Wwwision.Form.FusionPreset:FormElementWrapping {
-            formRuntime = ${formRuntime}
-            formElement = ${page}
-        }
-        elements.itemRenderer.@process.wrapElement = Wwwision.Form.FusionPreset:FormElementWrapping {
-            formRuntime = ${formRuntime}
-            formElement = ${element}
-        }
-    }
-        @process.wrapElement = Wwwision.Form.FusionPreset:FormElementWrapping {
-            formRuntime = ${formRuntime}
-        }
-
+    content.pages.collection = ${formRuntime.pages}
 }
 
-prototype(Wwwision.Form.FusionPreset:FormRenderer) < prototype(Neos.Fusion:Array) {
-    formStateHiddenField = Neos.Fusion:Tag {
-        tagName = 'input'
-        attributes {
-            type = 'hidden'
-            name = ${'--' + formRuntime.identifier + '[__state]'}
-            value = ${formRuntime.serializedFormState}
-        }
+prototype(Wwwision.Form.FusionPreset:FormStateHiddenField) < prototype(Neos.Fusion:Tag) {
+    tagName = 'input'
+    attributes {
+        type = 'hidden'
+        name = ${'--' + formRuntime.identifier + '[__state]'}
+        value = ${formRuntime.serializedFormState}
     }
+}
 
-    pages = Neos.Fusion:Collection {
-        collection = ${[formRuntime.currentPage]}
-        itemName = 'page'
-        itemRenderer = Neos.Fusion:Array {
-            elements = Neos.Fusion:Collection {
-                collection = ${page.renderablesRecursively}
-                itemName = 'element'
-                itemRenderer = Neos.Fusion:Case {
-                    default {
-                        condition = ${true}
-                        type = ${element.type}
-                    }
-                }
-            }
 
-        }
-    }
-
-    navigation = Neos.Fusion:Array {
-        previousButton = Neos.Fusion:Tag {
-            tagName = 'button'
-            content = 'Previous'
-            attributes {
-                name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-                value = ${formRuntime.previousPage.index}
-                formnovalidate = 'formnovalidate'
-            }
-            @if.previousPageExists = ${formRuntime.previousPage}
-        }
-        nextButton = Neos.Fusion:Tag {
-            tagName = 'button'
-            content = 'Next'
-            attributes {
-                name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-                value = ${formRuntime.nextPage.index}
-            }
-            @if.nextPageExists = ${formRuntime.nextPage}
-        }
-        submitButton = Neos.Fusion:Tag {
-            tagName = 'button'
-            content = 'Submit'
-            attributes {
-                name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-                value = ${Array.length(formRuntime.pages)}
-            }
-            @if.nextPageDoesNotExist = ${!formRuntime.nextPage}
-        }
-    }
+prototype(Wwwision.Form.FusionPreset:RenderCallbacks) {
+    @class = 'Wwwision\\Form\\FusionPreset\\Fusion\\RenderCallbacksImplementation'
+    value = ${value}
 }
