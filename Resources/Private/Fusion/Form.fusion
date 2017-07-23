@@ -19,6 +19,10 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
         }
         navigation = Wwwision.Form.FusionPreset:FormNavigation
     }
+    # TODO can this be removed?
+    @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
+        formRuntime = ${formRuntime}
+    }
 }
 
 prototype(Neos.Form:FormEditMode) < prototype(Neos.Form:Form) {
