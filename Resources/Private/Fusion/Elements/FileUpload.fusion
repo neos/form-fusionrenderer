@@ -1,3 +1,3 @@
 prototype(Neos.Form:FileUpload) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    field.attributes.type = 'file'
+    fieldContainer.field.attributes.type = 'file'
 }

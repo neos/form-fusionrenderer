@@ -1,5 +1,5 @@
 prototype(Neos.Form:StaticText) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    field.tagName = 'p'
+    fieldContainer.field.tagName = 'p'
     # TODO htmlspecialchars text
-    field.content = ${element.properties.text}
+    fieldContainer.field.content = ${element.properties.text}
 }

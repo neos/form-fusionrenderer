@@ -1,5 +1,10 @@
 prototype(Neos.Form:Checkbox) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    field.attributes.type = 'checkbox'
-    field.attributes.checked = ${true}
-    field.attributes.checked.@if.isSelected = ${FusionPreset.Validation.value(request, element.identifier)}
+    fieldContainer {
+        field {
+            attributes.type = 'checkbox'
+            attributes.value = ${element.properties.value}
+            attributes.checked = ${true}
+            attributes.checked.@if.isSelected = ${FusionPreset.Form.elementValue(formRuntime, element)}
+        }
+    }
 }

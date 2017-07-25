@@ -1,30 +1,60 @@
-prototype(Wwwision.Form.FusionPreset:FormNavigation) < prototype(Neos.Fusion:Array) {
-    previousButton = Neos.Fusion:Tag {
-        tagName = 'button'
-        content = 'Previous'
-        attributes {
-            name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-            value = ${formRuntime.previousPage.index}
-            formnovalidate = 'formnovalidate'
+prototype(Wwwision.Form.FusionPreset:FormNavigation) < prototype(Neos.Fusion:Tag) {
+    tagName = 'nav'
+    attributes.class = 'form-navigation'
+    content = Neos.Fusion:Array {
+        previousButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+            label = 'Previous'
+            class = 'btn btn-cancel'
+            containerClass = 'previous'
+            fieldValue = ${formRuntime.previousPage.index}
+            attributes.formnovalidate = ${true}
+            @if.previousPageExists = ${formRuntime.previousPage}
         }
-        @if.previousPageExists = ${formRuntime.previousPage}
+        nextButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+            label = 'Next page'
+            class = 'btn btn-primary'
+            containerClass = 'next'
+            fieldValue = ${formRuntime.nextPage.index}
+            @if.nextPageExists = ${formRuntime.nextPage}
+        }
+        submitButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+            label = ${formRuntime.renderingOptions.submitButtonLabel ? formRuntime.renderingOptions.submitButtonLabel : 'Submit'}
+            class = 'btn btn-primary'
+            containerClass = 'next submit'
+            fieldValue = ${Array.length(formRuntime.pages)}
+            @if.nextPageDoesNotExist = ${!formRuntime.nextPage}
+        }
+        @process.wrap = Neos.Fusion:Tag {
+            tagName = 'ul'
+            content = ${value}
+        }
     }
-    nextButton = Neos.Fusion:Tag {
-        tagName = 'button'
-        content = 'Next'
-        attributes {
-            name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-            value = ${formRuntime.nextPage.index}
-        }
-        @if.nextPageExists = ${formRuntime.nextPage}
+
+    @process.wrap = Neos.Fusion:Tag {
+        tagName = 'div'
+        attributes.class = 'actions'
+        content = ${value}
     }
-    submitButton = Neos.Fusion:Tag {
-        tagName = 'button'
-        content = 'Submit'
-        attributes {
-            name = ${'--' + formRuntime.identifier + '[__currentPage]'}
-            value = ${Array.length(formRuntime.pages)}
-        }
-        @if.nextPageDoesNotExist = ${!formRuntime.nextPage}
+
+}
+
+prototype(Wwwision.Form.FusionPreset:FormNavigationButton) < prototype(Neos.Fusion:Tag) {
+    tagName = 'button'
+    content = ${this.label}
+    @context.fieldName = ${this.fieldName}
+    @context.fieldValue = ${this.fieldValue}
+    @context.class = ${this.class}
+    @context.containerClass = ${this.containerClass}
+    attributes {
+        class = ${class}
+        type = 'submit'
+        name = ${'--' + formRuntime.identifier + '[__currentPage]'}
+        value = ${fieldValue}
+    }
+
+    @process.wrap = Neos.Fusion:Tag {
+        tagName = 'li'
+        attributes.class = ${containerClass}
+        content = ${value}
     }
 }

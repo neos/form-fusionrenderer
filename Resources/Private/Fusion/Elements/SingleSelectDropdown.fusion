@@ -1,4 +1,4 @@
 prototype(Neos.Form:SingleSelectDropdown) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    field.tagName = 'p'
-    field.content = 'SingleSelectDropdown not yet implemented'
+    fieldContainer.field.tagName = 'p'
+    fieldContainer.field.content = 'SingleSelectDropdown not yet implemented'
 }

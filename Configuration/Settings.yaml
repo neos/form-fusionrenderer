@@ -21,4 +21,4 @@ Neos:
 
   Fusion:
     defaultContext:
-      'FusionPreset.Validation': 'Wwwision\Form\FusionPreset\Eel\Helper\ValidationHelper'
+      'FusionPreset.Form': 'Wwwision\Form\FusionPreset\Eel\Helper\FormHelper'

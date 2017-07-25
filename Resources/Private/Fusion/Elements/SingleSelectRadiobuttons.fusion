@@ -1,4 +1,4 @@
 prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    field.tagName = 'p'
-    field.content = 'SingleSelectRadiobuttons not yet implemented'
+    fieldContainer.field.tagName = 'p'
+    fieldContainer.field.content = 'SingleSelectRadiobuttons not yet implemented'
 }

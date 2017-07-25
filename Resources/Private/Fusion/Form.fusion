@@ -9,7 +9,10 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
     }
 
     content = Neos.Fusion:Array {
-        formStateHiddenField = Wwwision.Form.FusionPreset:FormStateHiddenField
+        formHiddenFields = Neos.Fusion:Array {
+            formStateHiddenField = Wwwision.Form.FusionPreset:FormStateHiddenField
+            @process.wrap = ${'<div style="display:none">' + value + '</div>'}
+        }
         pages = Neos.Fusion:Collection {
             collection = ${[formRuntime.currentPage]}
             itemName = 'page'
@@ -18,10 +21,6 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
             }
         }
         navigation = Wwwision.Form.FusionPreset:FormNavigation
-    }
-    # TODO can this be removed?
-    @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
-        formRuntime = ${formRuntime}
     }
 }
 
