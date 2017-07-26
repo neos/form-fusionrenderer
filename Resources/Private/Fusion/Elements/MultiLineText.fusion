@@ -1,3 +1,11 @@
 prototype(Neos.Form:MultiLineText) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    fieldContainer.field.tagName = 'textarea'
+    fieldContainer {
+        field {
+            tagName = 'textarea'
+            attributes {
+                name = ${elementName}
+            }
+            content = ${elementValue}
+        }
+    }
 }

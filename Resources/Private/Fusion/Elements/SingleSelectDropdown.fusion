@@ -1,4 +1,21 @@
 prototype(Neos.Form:SingleSelectDropdown) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    fieldContainer.field.tagName = 'p'
-    fieldContainer.field.content = 'SingleSelectDropdown not yet implemented'
+    fieldContainer {
+        field {
+            tagName = 'select'
+            attributes {
+                name = ${elementName}
+            }
+            content = Neos.Fusion:Collection {
+                collection = ${element.properties.options}
+                itemName = 'optionLabel'
+                itemKey = 'optionValue'
+                itemRenderer = Neos.Fusion:Tag {
+                    tagName = 'option'
+                    attributes.value = ${optionValue}
+                    attributes.selected = ${elementValue == optionValue}
+                    content = ${optionLabel}
+                }
+            }
+        }
+    }
 }

@@ -1,0 +1,2 @@
+prototype(Neos.Form:Page) < prototype(Wwwision.Form.FusionPreset:AbstractSection) {
+}

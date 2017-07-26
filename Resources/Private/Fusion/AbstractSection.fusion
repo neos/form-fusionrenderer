@@ -1,13 +1,14 @@
-prototype(Neos.Form:Page) < prototype(Neos.Fusion:Tag) {
+prototype(Wwwision.Form.FusionPreset:AbstractSection) < prototype(Neos.Fusion:Tag) {
+    @context.containerElement = ${this.containerElement}
     tagName = 'fieldset'
     content = Neos.Fusion:Array {
         legend = Neos.Fusion:Tag {
             tagName = 'legend'
-            content = ${page.label}
-            @if.hasLabel = ${page.label}
+            content = ${containerElement.label}
+            @if.hasLabel = ${containerElement.label}
         }
         elements = Neos.Fusion:Collection {
-            collection = ${page.renderablesRecursively}
+            collection = ${containerElement.elements}
             itemName = 'element'
             itemRenderer = Neos.Fusion:Renderer {
                 type = ${element.type}
@@ -16,6 +17,6 @@ prototype(Neos.Form:Page) < prototype(Neos.Fusion:Tag) {
     }
     @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
         formRuntime = ${formRuntime}
-        formElement = ${page}
+        formElement = ${containerElement}
     }
 }

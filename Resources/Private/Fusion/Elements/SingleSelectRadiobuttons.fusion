@@ -1,4 +1,43 @@
 prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    fieldContainer.field.tagName = 'p'
-    fieldContainer.field.content = 'SingleSelectRadiobuttons not yet implemented'
+    fieldContainer {
+        field {
+            tagName = 'ul'
+            attributes {
+                class = 'inputs-list'
+            }
+            content = Neos.Fusion:Collection {
+                collection = ${element.properties.options}
+                itemName = 'optionLabel'
+                itemKey = 'optionValue'
+                itemRenderer = Neos.Fusion:Tag {
+                    tagName = 'li'
+                    content = Neos.Fusion:Tag {
+                        tagName = 'label'
+                        content = Neos.Fusion:Array {
+                            radioButton = Neos.Fusion:Tag {
+                                tagName = 'input'
+                                attributes {
+                                    type = 'radio'
+                                    class = Neos.Fusion:Array {
+                                        defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
+                                        errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
+                                        errorClass.@process.whitespace = ${' ' + value}
+                                        errorClass.@if.hasValidationError = ${elementHasValidationErrors}
+                                    }
+                                    name = ${elementName}
+                                    value = ${optionValue}
+                                    checked = ${elementValue == optionValue}
+                                }
+                            }
+                            label = Neos.Fusion:Tag {
+                                tagName = 'span'
+                                content = ${optionLabel}
+                                @process.whitespace = ${' ' + value}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

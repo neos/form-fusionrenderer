@@ -1,4 +1,22 @@
 prototype(Neos.Form:MultipleSelectDropdown) < prototype(Wwwision.Form.FusionPreset:FormElement) {
-    fieldContainer.field.tagName = 'p'
-    fieldContainer.field.content = 'MultipleSelectDropdown not yet implemented'
+    fieldContainer {
+        field {
+            tagName = 'select'
+            attributes {
+                multiple = ${true}
+                name = ${elementName + '[]'}
+            }
+            content = Neos.Fusion:Collection {
+                collection = ${element.properties.options}
+                itemName = 'optionLabel'
+                itemKey = 'optionValue'
+                itemRenderer = Neos.Fusion:Tag {
+                    tagName = 'option'
+                    attributes.value = ${optionValue}
+                    attributes.selected = ${elementValue != null && Array.indexOf(elementValue, optionValue)!= -1}
+                    content = ${optionLabel}
+                }
+            }
+        }
+    }
 }

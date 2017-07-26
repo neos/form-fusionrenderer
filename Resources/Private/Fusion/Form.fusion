@@ -18,6 +18,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
             itemName = 'page'
             itemRenderer = Neos.Fusion:Renderer {
                 type = ${page.type}
+                element.containerElement = ${page}
             }
         }
         navigation = Wwwision.Form.FusionPreset:FormNavigation

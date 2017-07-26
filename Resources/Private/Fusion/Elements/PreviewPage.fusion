@@ -1,2 +1,0 @@
-prototype(Neos.Form:PreviewPage) < prototype(Neos.Form:Page) {
-}
