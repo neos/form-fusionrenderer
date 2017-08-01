@@ -3,7 +3,6 @@
     "type": "neos-package",
     "name": "wwwision/form-fusionpreset",
     "require": {
-        "neos/neos": "^4.1",
         "neos/form": "^4.0"
     },
     "autoload": {
