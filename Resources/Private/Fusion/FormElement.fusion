@@ -4,52 +4,8 @@ prototype(Wwwision.Form.FusionPreset:FormElement) < prototype(Neos.Fusion:Array)
     @context.elementValicationErrors = ${FusionPreset.Form.validationErrors(formRuntime, element)}
     @context.elementHasValicationErrors = ${FusionPreset.Form.hasValidationErrors(formRuntime, element)}
 
-    label = Wwwision.Form.FusionPreset:FormElementLabel {
-        for = ${element.uniqueIdentifier}
-        text = ${element.label}
-        required = ${element.required}
-    }
-    fieldContainer = Neos.Fusion:Array {
-        field = Neos.Fusion:Tag {
-            attributes {
-                placeholder = ${element.properties.placeholder}
-                class = Neos.Fusion:Array {
-                    defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
-                    errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
-                    errorClass.@process.whitespace = ${' ' + value}
-                    errorClass.@if.hasValicationErrors = ${elementHasValicationErrors}
-                }
-                id = ${element.uniqueIdentifier}
-            }
-
-        }
-        validationErrors = Neos.Fusion:Tag {
-            tagName = 'span'
-            attributes {
-                class = 'help-inline'
-            }
-            content = Neos.Fusion:Collection {
-                collection = ${elementValicationErrors}
-                itemName = 'error'
-                itemRenderer =  ${error}
-            }
-            @if.hasValidationErrors = ${elementHasValicationErrors}
-        }
-        elementDescription = Neos.Fusion:Tag {
-            tagName = 'span'
-            attributes {
-                class = 'help-block'
-            }
-            content = ${element.properties.elementDescription}
-            @if.condition = ${element.properties.elementDescription}
-        }
-
-        @process.wrap = Neos.Fusion:Tag {
-            tagName = 'div'
-            attributes.class = ${element.properties.containerClassAttribute}
-            content = ${value}
-        }
-    }
+    label = Wwwision.Form.FusionPreset:FormElementLabel
+    fieldContainer = Wwwision.Form.FusionPreset:FormElementFieldContainer
 
     @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
         formRuntime = ${formRuntime}
@@ -65,22 +21,66 @@ prototype(Wwwision.Form.FusionPreset:FormElement) < prototype(Neos.Fusion:Array)
 }
 
 prototype(Wwwision.Form.FusionPreset:FormElementLabel) < prototype(Neos.Fusion:Tag) {
-    @context.for = ${this.for}
-    @context.text = ${this.text}
-    @context.required = ${this.required}
-    @context.requiredFlag = Wwwision.Form.FusionPreset:RequiredFlag
-
     tagName = 'label'
     attributes {
-        for = ${for}
+        for = ${element.uniqueIdentifier}
     }
-    content = ${text}
-    content.@process.requiredFlag = ${value + requiredFlag}
-    content.@process.requiredFlag.@if.isRequired = ${required}
+    content = Neos.Fusion:Array {
+        value = ${element.label}
+        requiredFlag = Wwwision.Form.FusionPreset:RequiredFlag
+        requiredFlag.@if.isRequired = ${element.required}
+    }
 }
 
 prototype(Wwwision.Form.FusionPreset:RequiredFlag) < prototype(Neos.Fusion:Tag) {
     tagName = 'span'
     attributes.class = 'required'
-    content = ${value + '*'
+    content = ${value + '*'}
+}
+
+prototype(Wwwision.Form.FusionPreset:FormElementFieldContainer) < prototype(Neos.Fusion:Array) {
+    field = Wwwision.Form.FusionPreset:FormElementField
+    validationErrors = Wwwision.Form.FusionPreset:FormElementValidationErrors
+    elementDescription = Wwwision.Form.FusionPreset:FormElementDescription
+
+    @process.wrap = Neos.Fusion:Tag {
+        tagName = 'div'
+        attributes.class = ${element.properties.containerClassAttribute}
+        content = ${value}
+    }
+}
+
+prototype(Wwwision.Form.FusionPreset:FormElementField) < prototype(Neos.Fusion:Tag) {
+    attributes {
+        placeholder = ${element.properties.placeholder}
+        class = Neos.Fusion:Array {
+            defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
+            errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
+            errorClass.@process.whitespace = ${' ' + value}
+            errorClass.@if.hasValicationErrors = ${elementHasValicationErrors}
+        }
+        id = ${element.uniqueIdentifier}
+    }
+}
+
+prototype(Wwwision.Form.FusionPreset:FormElementValidationErrors) < prototype(Neos.Fusion:Tag) {
+    tagName = 'span'
+    attributes {
+        class = 'help-inline'
+    }
+    content = Neos.Fusion:Collection {
+        collection = ${elementValicationErrors}
+        itemName = 'error'
+        itemRenderer =  ${error}
+    }
+    @if.hasValidationErrors = ${elementHasValicationErrors}
+}
+
+prototype(Wwwision.Form.FusionPreset:FormElementDescription) < prototype(Neos.Fusion:Tag) {
+    tagName = 'span'
+    attributes {
+        class = 'help-block'
+    }
+    content = ${element.properties.elementDescription}
+    @if.condition = ${element.properties.elementDescription}
 }
