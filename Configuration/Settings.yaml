@@ -10,7 +10,6 @@ Neos:
               templatePathPattern: ~
               partialPathPattern: ~
               layoutPathPattern: ~
-              fusionPrototype: 'TODO'
           'Neos.Form:Form':
             rendererClassName: 'Wwwision\Form\FusionPreset\FusionFormRenderer'
 
