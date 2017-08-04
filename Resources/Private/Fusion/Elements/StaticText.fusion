@@ -1,16 +1,16 @@
 prototype(Neos.Form:StaticText) < prototype(Neos.Form.FusionRenderer:FormElement) {
+    label {
+        tagName = 'h2'
+        attributes.for >
+    }
     fieldContainer {
-        label >
-        label = Neos.Fusion:Tag {
-            tagName = 'h2'
-            content = ${element.label}
-            @if.hasLabel = ${element.label}
-        }
         field {
             tagName = 'p'
+            attributes.id >
             # TODO nl2br, htmlspecialchars
             content = ${element.properties.text}
             @if.hasText = ${element.properties.text}
         }
+        @process.wrap >
     }
 }
