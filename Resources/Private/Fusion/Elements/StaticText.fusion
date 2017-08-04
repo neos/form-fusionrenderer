@@ -1,4 +1,4 @@
-prototype(Neos.Form:StaticText) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+prototype(Neos.Form:StaticText) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
         label >
         label = Neos.Fusion:Tag {

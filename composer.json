@@ -1,18 +1,19 @@
 {
-    "description": "Flow Form Framework preset for Fusion based Form rendering",
+    "name": "neos/form-fusionrenderer",
     "type": "neos-package",
-    "name": "wwwision/form-fusionpreset",
+    "description": "Flow Form Framework preset for Fusion based Form rendering",
+    "license": "MIT",
     "require": {
         "neos/form": "^4.0"
     },
     "autoload": {
         "psr-4": {
-            "Wwwision\\Form\\FusionPreset\\": "Classes/"
+            "Neos\\Form\\FusionRenderer\\": "Classes/"
         }
     },
     "extra": {
         "neos": {
-            "package-key": "Wwwision.Form.FusionPreset"
+            "package-key": "Neos.Form.FusionRenderer"
         }
     }
 }

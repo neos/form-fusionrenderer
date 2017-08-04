@@ -10,7 +10,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
 
     content = Neos.Fusion:Array {
         formHiddenFields = Neos.Fusion:Array {
-            formStateHiddenField = Wwwision.Form.FusionPreset:FormStateHiddenField
+            formStateHiddenField = Neos.Form.FusionRenderer:FormStateHiddenField
             @process.wrap = ${'<div style="display:none">' + value + '</div>'}
         }
         pages = Neos.Fusion:Collection {
@@ -21,7 +21,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
                 element.containerElement = ${page}
             }
         }
-        navigation = Wwwision.Form.FusionPreset:FormNavigation
+        navigation = Neos.Form.FusionRenderer:FormNavigation
     }
 }
 
@@ -30,7 +30,7 @@ prototype(Neos.Form:FormEditMode) < prototype(Neos.Form:Form) {
     content.pages.collection = ${formRuntime.pages}
 }
 
-prototype(Wwwision.Form.FusionPreset:FormStateHiddenField) < prototype(Neos.Fusion:Tag) {
+prototype(Neos.Form.FusionRenderer:FormStateHiddenField) < prototype(Neos.Fusion:Tag) {
     tagName = 'input'
     attributes {
         type = 'hidden'
@@ -40,7 +40,7 @@ prototype(Wwwision.Form.FusionPreset:FormStateHiddenField) < prototype(Neos.Fusi
 }
 
 
-prototype(Wwwision.Form.FusionPreset:RenderCallbacks) {
-    @class = 'Wwwision\\Form\\FusionPreset\\Fusion\\RenderCallbacksImplementation'
+prototype(Neos.Form.FusionRenderer:RenderCallbacks) {
+    @class = 'Neos\\Form\\FusionRenderer\\Fusion\\RenderCallbacksImplementation'
     value = ${value}
 }

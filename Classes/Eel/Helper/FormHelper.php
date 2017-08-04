@@ -1,5 +1,5 @@
 <?php
-namespace Wwwision\Form\FusionPreset\Eel\Helper;
+namespace Neos\Form\FusionRenderer\Eel\Helper;
 
 use Neos\Eel\ProtectedContextAwareInterface;
 use Neos\Error\Messages\Result;

@@ -1,5 +1,5 @@
 <?php
-namespace Wwwision\Form\FusionPreset\Fusion;
+namespace Neos\Form\FusionRenderer\Fusion;
 
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;

@@ -1,4 +1,4 @@
-prototype(Wwwision.Form.FusionPreset:AbstractSection) < prototype(Neos.Fusion:Tag) {
+prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag) {
     @context.containerElement = ${this.containerElement}
     tagName = 'fieldset'
     content = Neos.Fusion:Array {
@@ -15,7 +15,7 @@ prototype(Wwwision.Form.FusionPreset:AbstractSection) < prototype(Neos.Fusion:Ta
             }
         }
     }
-    @process.renderCallbacks = Wwwision.Form.FusionPreset:RenderCallbacks {
+    @process.renderCallbacks = Neos.Form.FusionRenderer:RenderCallbacks {
         formRuntime = ${formRuntime}
         formElement = ${containerElement}
     }

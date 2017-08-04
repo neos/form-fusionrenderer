@@ -1,3 +1,3 @@
-prototype(Neos.Form:Section) < prototype(Wwwision.Form.FusionPreset:AbstractSection) {
+prototype(Neos.Form:Section) < prototype(Neos.Form.FusionRenderer:AbstractSection) {
     @context.containerElement = ${element}
 }

@@ -1,4 +1,4 @@
-# Wwwision.Form.FusionPreset
+# Neos.Form.FusionRenderer
 
 Flow Form Framework preset for Fusion based Form rendering (BETA)
 

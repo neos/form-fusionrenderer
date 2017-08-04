@@ -1,8 +1,8 @@
-prototype(Wwwision.Form.FusionPreset:FormNavigation) < prototype(Neos.Fusion:Tag) {
+prototype(Neos.Form.FusionRenderer:FormNavigation) < prototype(Neos.Fusion:Tag) {
     tagName = 'nav'
     attributes.class = 'form-navigation'
     content = Neos.Fusion:Array {
-        previousButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+        previousButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = 'Previous'
             class = 'btn btn-cancel'
             containerClass = 'previous'
@@ -10,14 +10,14 @@ prototype(Wwwision.Form.FusionPreset:FormNavigation) < prototype(Neos.Fusion:Tag
             attributes.formnovalidate = ${true}
             @if.previousPageExists = ${formRuntime.previousPage}
         }
-        nextButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+        nextButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = 'Next page'
             class = 'btn btn-primary'
             containerClass = 'next'
             fieldValue = ${formRuntime.nextPage.index}
             @if.nextPageExists = ${formRuntime.nextPage}
         }
-        submitButton = Wwwision.Form.FusionPreset:FormNavigationButton {
+        submitButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = ${formRuntime.renderingOptions.submitButtonLabel ? formRuntime.renderingOptions.submitButtonLabel : 'Submit'}
             class = 'btn btn-primary'
             containerClass = 'next submit'
@@ -38,7 +38,7 @@ prototype(Wwwision.Form.FusionPreset:FormNavigation) < prototype(Neos.Fusion:Tag
 
 }
 
-prototype(Wwwision.Form.FusionPreset:FormNavigationButton) < prototype(Neos.Fusion:Tag) {
+prototype(Neos.Form.FusionRenderer:FormNavigationButton) < prototype(Neos.Fusion:Tag) {
     tagName = 'button'
     content = ${this.label}
     @context.fieldName = ${this.fieldName}

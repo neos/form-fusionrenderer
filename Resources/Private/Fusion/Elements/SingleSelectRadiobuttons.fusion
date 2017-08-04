@@ -1,4 +1,4 @@
-prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
         field {
             tagName = 'ul'

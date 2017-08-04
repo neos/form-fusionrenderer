@@ -1,4 +1,4 @@
-prototype(Neos.Form:Checkbox) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+prototype(Neos.Form:Checkbox) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
         field {
             tagName = 'input'

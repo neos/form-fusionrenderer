@@ -11,13 +11,13 @@ Neos:
               partialPathPattern: ~
               layoutPathPattern: ~
           'Neos.Form:Form':
-            rendererClassName: 'Wwwision\Form\FusionPreset\FusionFormRenderer'
+            rendererClassName: 'Neos\Form\FusionRenderer\FusionFormRenderer'
 
 #  Neos:
 #    fusion:
 #      autoInclude:
-#        'Wwwision.Form.FusionPreset': true
+#        'Neos.Form.FusionRenderer': true
 
   Fusion:
     defaultContext:
-      'FusionPreset.Form': 'Wwwision\Form\FusionPreset\Eel\Helper\FormHelper'
+      'FusionPreset.Form': 'Neos\Form\FusionRenderer\Eel\Helper\FormHelper'

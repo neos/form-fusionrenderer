@@ -1,4 +1,4 @@
-prototype(Neos.Form:MultipleSelectCheckboxes) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+prototype(Neos.Form:MultipleSelectCheckboxes) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
         field {
             tagName = 'ul'

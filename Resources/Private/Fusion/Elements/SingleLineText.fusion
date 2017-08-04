@@ -1,4 +1,4 @@
-prototype(Neos.Form:SingleLineText) < prototype(Wwwision.Form.FusionPreset:FormElement) {
+prototype(Neos.Form:SingleLineText) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
         field {
             tagName = 'input'
