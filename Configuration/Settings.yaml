@@ -20,4 +20,4 @@ Neos:
 
   Fusion:
     defaultContext:
-      'FusionPreset.Form': 'Neos\Form\FusionRenderer\Eel\Helper\FormHelper'
+      'Neos.Form': 'Neos\Form\FusionRenderer\Eel\Helper\FormHelper'
