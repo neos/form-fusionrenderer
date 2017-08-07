@@ -5,14 +5,11 @@ prototype(Neos.Form:SingleSelectDropdown) < prototype(Neos.Form.FusionRenderer:F
             attributes {
                 name = ${elementName}
             }
-            content = Neos.Fusion:Collection {
-                collection = ${element.properties.options}
-                itemName = 'optionLabel'
-                itemKey = 'optionValue'
+            content = Neos.Form.FusionRenderer:SelectOptions {
                 itemRenderer = Neos.Fusion:Tag {
                     tagName = 'option'
                     attributes.value = ${optionValue}
-                    attributes.selected = ${elementValue == optionValue}
+                    attributes.selected = ${optionSelected}
                     content = ${optionLabel}
                 }
             }

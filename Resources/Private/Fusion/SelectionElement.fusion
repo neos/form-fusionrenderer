@@ -1,0 +1,7 @@
+prototype(Neos.Form.FusionRenderer:SelectionElement) < prototype(Neos.Form.FusionRenderer:FormElement) {
+
+}
+
+prototype(Neos.Form.FusionRenderer:SelectOptions) < prototype(Neos.Fusion:Collection) {
+    @class = 'Neos\\Form\\FusionRenderer\\Fusion\\SelectOptionsImplementation'
+}

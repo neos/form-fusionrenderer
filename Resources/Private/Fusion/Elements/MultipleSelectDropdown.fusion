@@ -6,14 +6,11 @@ prototype(Neos.Form:MultipleSelectDropdown) < prototype(Neos.Form.FusionRenderer
                 multiple = ${true}
                 name = ${elementName + '[]'}
             }
-            content = Neos.Fusion:Collection {
-                collection = ${element.properties.options}
-                itemName = 'optionLabel'
-                itemKey = 'optionValue'
+            content = Neos.Form.FusionRenderer:SelectOptions {
                 itemRenderer = Neos.Fusion:Tag {
                     tagName = 'option'
                     attributes.value = ${optionValue}
-                    attributes.selected = ${elementValue != null && Array.indexOf(elementValue, optionValue)!= -1}
+                    attributes.selected = ${optionSelected}
                     content = ${optionLabel}
                 }
             }

@@ -5,10 +5,7 @@ prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Neos.Form.FusionRender
             attributes {
                 class = 'inputs-list'
             }
-            content = Neos.Fusion:Collection {
-                collection = ${element.properties.options}
-                itemName = 'optionLabel'
-                itemKey = 'optionValue'
+            content = Neos.Form.FusionRenderer:SelectOptions {
                 itemRenderer = Neos.Fusion:Tag {
                     tagName = 'li'
                     content = Neos.Fusion:Tag {
@@ -26,7 +23,7 @@ prototype(Neos.Form:SingleSelectRadiobuttons) < prototype(Neos.Form.FusionRender
                                     }
                                     name = ${elementName}
                                     value = ${optionValue}
-                                    checked = ${elementValue == optionValue}
+                                    checked = ${optionSelected}
                                 }
                             }
                             label = Neos.Fusion:Tag {
