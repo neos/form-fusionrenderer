@@ -19,12 +19,12 @@ class FusionFormRenderer implements RendererInterface
      */
     private $formRuntime;
 
-    public function setControllerContext(ControllerContext $controllerContext): void
+    public function setControllerContext(ControllerContext $controllerContext)
     {
         $this->controllerContext = $controllerContext;
     }
 
-    public function setFormRuntime(FormRuntime $formRuntime): void
+    public function setFormRuntime(FormRuntime $formRuntime)
     {
         $this->formRuntime = $formRuntime;
     }
