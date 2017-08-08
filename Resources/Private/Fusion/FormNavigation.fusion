@@ -4,7 +4,7 @@ prototype(Neos.Form.FusionRenderer:FormNavigation) < prototype(Neos.Fusion:Tag) 
     content = Neos.Fusion:Array {
         previousButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = 'Previous'
-            class = 'btn btn-cancel'
+            class = ${formRuntime.renderingOptions.previousButtonClassAttribute}
             containerClass = 'previous'
             fieldValue = ${formRuntime.previousPage.index}
             attributes.formnovalidate = ${true}
@@ -12,14 +12,14 @@ prototype(Neos.Form.FusionRenderer:FormNavigation) < prototype(Neos.Fusion:Tag) 
         }
         nextButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = 'Next page'
-            class = 'btn btn-primary'
+            class = ${formRuntime.renderingOptions.nextButtonClassAttribute}
             containerClass = 'next'
             fieldValue = ${formRuntime.nextPage.index}
             @if.nextPageExists = ${formRuntime.nextPage}
         }
         submitButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = ${formRuntime.renderingOptions.submitButtonLabel ? formRuntime.renderingOptions.submitButtonLabel : 'Submit'}
-            class = 'btn btn-primary'
+            class = ${formRuntime.renderingOptions.submitButtonClassAttribute}
             containerClass = 'next submit'
             fieldValue = ${Array.length(formRuntime.pages)}
             @if.nextPageDoesNotExist = ${!formRuntime.nextPage}
