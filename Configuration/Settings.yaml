@@ -13,10 +13,10 @@ Neos:
           'Neos.Form:Form':
             rendererClassName: 'Neos\Form\FusionRenderer\FusionFormRenderer'
 
-#  Neos:
-#    fusion:
-#      autoInclude:
-#        'Neos.Form.FusionRenderer': true
+  Neos:
+    fusion:
+      autoInclude:
+        'Neos.Form.FusionRenderer': true
 
   Fusion:
     defaultContext:

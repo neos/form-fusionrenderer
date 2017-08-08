@@ -7,6 +7,8 @@ use Neos\Flow\Package\PackageManagerInterface;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Renderer\RendererInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
+use Neos\Fusion\Core\Runtime;
+use Neos\Fusion\Exception as FusionException;
 use Neos\Fusion\View\FusionView;
 
 class FusionFormRenderer implements RendererInterface
@@ -50,6 +52,18 @@ class FusionFormRenderer implements RendererInterface
             // TODO exception
             return '';
         }
+        $renderingOptions = $this->formRuntime->getRenderingOptions();
+        if (isset($renderingOptions['__fusionRuntime'])) {
+            $fusionRuntime = $renderingOptions['__fusionRuntime'];
+            if (!$fusionRuntime instanceof Runtime) {
+                // TODO
+                throw new FusionException();
+            }
+            $fusionRuntime->pushContext('formRuntime', $this->formRuntime);
+            $output = $fusionRuntime->render('form');
+            $fusionRuntime->popContext();
+            return $output;
+        }
 
         $fusionView = new FusionView();
         $fusionView->setControllerContext($this->controllerContext);
@@ -57,7 +71,9 @@ class FusionFormRenderer implements RendererInterface
         $fusionView->setPackageKey('Neos.Form.FusionRenderer');
         $fusionView->setFusionPathPatterns([
             $this->packageManager->getPackage('Neos.Fusion')->getResourcesPath() . 'Private/Fusion',
-            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion',
+            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/Core',
+            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/ContainerElements',
+            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/Elements',
         ]);
         $fusionView->setFusionPath('form');
         $fusionView->assign('formRuntime', $formRuntime);

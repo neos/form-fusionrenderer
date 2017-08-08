@@ -44,3 +44,7 @@ prototype(Neos.Form.FusionRenderer:RenderCallbacks) {
     @class = 'Neos\\Form\\FusionRenderer\\Fusion\\RenderCallbacksImplementation'
     value = ${value}
 }
+
+form = Neos.Fusion:Renderer {
+    type = ${formRuntime.type}
+}

@@ -1,4 +1,1 @@
-form = Neos.Fusion:Case {
-    10.condition = ${true}
-    10.type = ${formRuntime.type}
-}
+include: **/*.fusion
