@@ -27,9 +27,13 @@ class RenderCallbacksImplementation extends AbstractFusionObject
 
     public function evaluate()
     {
-        $renderedFormElement = $this->getValue();
         $formRuntime = $this->getFormRuntime();
-        $renderedFormElement = $formRuntime->invokeRenderCallbacks($renderedFormElement, $this->getFormElement() ?: $formRuntime);
+        $formElement = $this->getFormElement();
+        if ($formElement !== null) {
+            $formElement->beforeRendering($formRuntime);
+        }
+        $renderedFormElement = $this->getValue();
+        $renderedFormElement = $formRuntime->invokeRenderCallbacks($renderedFormElement, $formElement ?: $formRuntime);
         return $renderedFormElement;
     }
 }
