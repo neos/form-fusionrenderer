@@ -1,7 +1,9 @@
 <?php
 namespace Neos\Form\FusionRenderer;
 
+use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Controller\ControllerContext;
+use Neos\Flow\Package\PackageManagerInterface;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Renderer\RendererInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
@@ -18,6 +20,12 @@ class FusionFormRenderer implements RendererInterface
      * @var FormRuntime
      */
     private $formRuntime;
+
+    /**
+     * @Flow\Inject
+     * @var PackageManagerInterface
+     */
+    protected $packageManager;
 
     public function setControllerContext(ControllerContext $controllerContext)
     {
@@ -48,8 +56,8 @@ class FusionFormRenderer implements RendererInterface
         $fusionView->disableFallbackView();
         $fusionView->setPackageKey('Neos.Form.FusionRenderer');
         $fusionView->setFusionPathPatterns([
-            FLOW_PATH_PACKAGES . 'Neos/Neos.Fusion/Resources/Private/Fusion',
-            FLOW_PATH_PACKAGES . 'Application/Neos.Form.FusionRenderer/Resources/Private/Fusion',
+            $this->packageManager->getPackage('Neos.Fusion')->getResourcesPath() . 'Private/Fusion',
+            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion',
         ]);
         $fusionView->setFusionPath('form');
         $fusionView->assign('formRuntime', $formRuntime);
