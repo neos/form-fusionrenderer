@@ -53,8 +53,8 @@ class FusionFormRenderer implements RendererInterface
             return '';
         }
         $renderingOptions = $this->formRuntime->getRenderingOptions();
-        if (isset($renderingOptions['__fusionRuntime'])) {
-            $fusionRuntime = $renderingOptions['__fusionRuntime'];
+        if (isset($renderingOptions['_fusionRuntime'])) {
+            $fusionRuntime = $renderingOptions['_fusionRuntime'];
             if (!$fusionRuntime instanceof Runtime) {
                 // TODO
                 throw new FusionException();
