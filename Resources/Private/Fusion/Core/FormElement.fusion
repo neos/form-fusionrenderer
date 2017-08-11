@@ -35,7 +35,7 @@ prototype(Neos.Form.FusionRenderer:FormElementLabel) < prototype(Neos.Fusion:Tag
 prototype(Neos.Form.FusionRenderer:RequiredFlag) < prototype(Neos.Fusion:Tag) {
     tagName = 'span'
     attributes.class = 'required'
-    content = ${value + '*'}
+    content = '*'
 }
 
 prototype(Neos.Form.FusionRenderer:FormElementFieldContainer) < prototype(Neos.Fusion:Array) {
