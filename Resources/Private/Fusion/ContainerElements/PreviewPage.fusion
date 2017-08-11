@@ -1,0 +1,38 @@
+prototype(Neos.Form:PreviewPage) < prototype(Neos.Form.FusionRenderer:AbstractSection) {
+    content.elements = Neos.Fusion:Tag {
+        tagName = 'table'
+        content = Neos.Fusion:Array {
+            headerRow = Neos.Fusion:Tag {
+                tagName = 'tr'
+                content = Neos.Fusion:Array {
+                    1 = Neos.Fusion:Tag {
+                        tagName = 'th'
+                        content = ${Neos.Form.translate(containerElement, 'forms.pages.labelTitle', 'Label')}
+                    }
+                    2 = Neos.Fusion:Tag {
+                        tagName = 'th'
+                        content = ${Neos.Form.translate(containerElement, 'forms.pages.valueTitle', 'Value')}
+                    }
+                }
+            }
+            valueRows = Neos.Fusion:Collection {
+                collection = ${containerElement.rootForm.renderablesRecursively}
+                itemName = 'element'
+                itemRenderer = Neos.Fusion:Tag {
+                    tagName = 'tr'
+                    content = Neos.Fusion:Array {
+                        1 = Neos.Fusion:Tag {
+                            tagName = 'td'
+                            content = ${element.label}
+                        }
+                        2 = Neos.Fusion:Tag {
+                            tagName = 'td'
+                            content = ${Neos.Form.elementValue(formRuntime, element)}
+                        }
+                    }
+                }
+            }
+            @process.wrap = ${'<output>' + value + '</output>'}
+        }
+    }
+}

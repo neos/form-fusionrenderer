@@ -9,6 +9,7 @@ use Neos\Flow\Mvc\ActionRequest;
 use Neos\Flow\ResourceManagement\Exception as ResourceException;
 use Neos\Form\Core\Model\FormElementInterface;
 use Neos\Form\Core\Model\Renderable\AbstractRenderable;
+use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Utility\ObjectAccess;
 
@@ -21,7 +22,7 @@ class FormHelper implements ProtectedContextAwareInterface
      */
     protected $translator;
 
-    public function elementValue(FormRuntime $formRuntime, FormElementInterface $element)
+    public function elementValue(FormRuntime $formRuntime, RootRenderableInterface $element)
     {
         $request = $formRuntime->getRequest();
         /** @var Result $validationResults */
@@ -32,7 +33,7 @@ class FormHelper implements ProtectedContextAwareInterface
         return ObjectAccess::getPropertyPath($formRuntime, $element->getIdentifier());
     }
 
-    private function getLastSubmittedFormData(ActionRequest $request, FormElementInterface $element)
+    private function getLastSubmittedFormData(ActionRequest $request, RootRenderableInterface $element)
     {
         $submittedArguments = $request->getInternalArgument('__submittedArguments');
         if ($submittedArguments === null) {
@@ -41,17 +42,17 @@ class FormHelper implements ProtectedContextAwareInterface
         return ObjectAccess::getPropertyPath($submittedArguments, $element->getIdentifier());
     }
 
-    public function hasValidationErrors(FormRuntime $formRuntime, FormElementInterface $element): bool
+    public function hasValidationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): bool
     {
         return $this->getValidationResult($formRuntime, $element)->hasErrors();
     }
 
-    public function validationErrors(FormRuntime $formRuntime, FormElementInterface $element): array
+    public function validationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): array
     {
         return $this->getValidationResult($formRuntime, $element)->getErrors();
     }
 
-    private function getValidationResult(FormRuntime $formRuntime, FormElementInterface $element): Result
+    private function getValidationResult(FormRuntime $formRuntime, RootRenderableInterface $element): Result
     {
         /** @var Result $validationResults */
         $validationResults = $formRuntime->getRequest()->getInternalArgument('__submittedArgumentValidationResults');
