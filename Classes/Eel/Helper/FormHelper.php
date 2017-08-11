@@ -71,6 +71,9 @@ class FormHelper implements ProtectedContextAwareInterface
     {
         if ($property === 'label') {
             $defaultValue = $element->getLabel();
+            if ($defaultValue === null) {
+                $defaultValue = '';
+            }
         } elseif ($element instanceof FormElementInterface) {
             $defaultValue = isset($element->getProperties()[$property]) ? (string)$element->getProperties()[$property] : '';
         } else {
