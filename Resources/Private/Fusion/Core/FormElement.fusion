@@ -1,8 +1,8 @@
 prototype(Neos.Form.FusionRenderer:FormElement) < prototype(Neos.Fusion:Array) {
     @context.elementName = ${'--' + formRuntime.identifier + '[' + element.identifier + ']'}
     @context.elementValue = ${Neos.Form.elementValue(formRuntime, element)}
-    @context.elementValicationErrors = ${Neos.Form.validationErrors(formRuntime, element)}
-    @context.elementHasValicationErrors = ${Neos.Form.hasValidationErrors(formRuntime, element)}
+    @context.elementValidationErrors = ${Neos.Form.validationErrors(formRuntime, element)}
+    @context.elementHasValidationErrors = ${Neos.Form.hasValidationErrors(formRuntime, element)}
 
     label = Neos.Form.FusionRenderer:FormElementLabel
     fieldContainer = Neos.Form.FusionRenderer:FormElementFieldContainer
@@ -57,7 +57,7 @@ prototype(Neos.Form.FusionRenderer:FormElementField) < prototype(Neos.Fusion:Tag
             defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
             errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
             errorClass.@process.whitespace = ${' ' + value}
-            errorClass.@if.hasValicationErrors = ${elementHasValicationErrors}
+            errorClass.@if.hasValidationErrors = ${elementHasValidationErrors}
         }
         id = ${element.uniqueIdentifier}
     }
@@ -69,11 +69,11 @@ prototype(Neos.Form.FusionRenderer:FormElementValidationErrors) < prototype(Neos
         class = 'help-inline'
     }
     content = Neos.Fusion:Collection {
-        collection = ${elementValicationErrors}
+        collection = ${elementValidationErrors}
         itemName = 'error'
         itemRenderer =  ${error}
     }
-    @if.hasValidationErrors = ${elementHasValicationErrors}
+    @if.hasValidationErrors = ${elementHasValidationErrors}
 }
 
 prototype(Neos.Form.FusionRenderer:FormElementDescription) < prototype(Neos.Fusion:Tag) {
