@@ -83,7 +83,7 @@ class FormHelper implements ProtectedContextAwareInterface
         return $this->translate($element, $translationId, $defaultValue);
     }
 
-    public function translate(AbstractRenderable $element, string $translationId, string $defaultValue): string
+    public function translate(RootRenderableInterface $element, string $translationId, string $defaultValue): string
     {
         $renderingOptions = $element->getRenderingOptions();
         if (!isset($renderingOptions['translationPackage'])) {
