@@ -8,21 +8,21 @@ prototype(Neos.Form.FusionRenderer:FormNavigation) < prototype(Neos.Fusion:Tag) 
             containerClass = 'previous'
             fieldValue = ${formRuntime.previousPage.index}
             attributes.formnovalidate = ${true}
-            @if.previousPageExists = ${formRuntime.previousPage}
+            @if.previousPageExists = ${formRuntime.previousPage ? true : false}
         }
         nextButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = 'Next page'
             class = ${formRuntime.renderingOptions.nextButtonClassAttribute}
             containerClass = 'next'
             fieldValue = ${formRuntime.nextPage.index}
-            @if.nextPageExists = ${formRuntime.nextPage}
+            @if.nextPageExists = ${formRuntime.nextPage ? true : false}
         }
         submitButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = ${formRuntime.renderingOptions.submitButtonLabel ? formRuntime.renderingOptions.submitButtonLabel : 'Submit'}
             class = ${formRuntime.renderingOptions.submitButtonClassAttribute}
             containerClass = 'next submit'
             fieldValue = ${Array.length(formRuntime.pages)}
-            @if.nextPageDoesNotExist = ${!formRuntime.nextPage}
+            @if.nextPageDoesNotExist = ${!formRuntime.nextPage ? true : false}
         }
         @process.wrap = Neos.Fusion:Tag {
             tagName = 'ul'

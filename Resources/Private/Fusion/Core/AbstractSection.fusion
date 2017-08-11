@@ -5,7 +5,7 @@ prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag)
         legend = Neos.Fusion:Tag {
             tagName = 'legend'
             content = ${Neos.Form.translateAndEscapeProperty(containerElement, 'label')}
-            @if.hasLabel = ${containerElement.label}
+            @if.hasLabel = ${containerElement.label ? true : false}
         }
         elements = Neos.Fusion:Collection {
             collection = ${containerElement.elements}

@@ -82,5 +82,5 @@ prototype(Neos.Form.FusionRenderer:FormElementDescription) < prototype(Neos.Fusi
         class = 'help-block'
     }
     content = ${element.properties.elementDescription}
-    @if.condition = ${element.properties.elementDescription}
+    @if.condition = ${element.properties.elementDescription ? true : false}
 }

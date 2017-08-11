@@ -9,7 +9,7 @@ prototype(Neos.Form:StaticText) < prototype(Neos.Form.FusionRenderer:FormElement
             attributes.id >
             # TODO nl2br, htmlspecialchars
             content = ${element.properties.text}
-            @if.hasText = ${element.properties.text}
+            @if.hasText = ${element.properties.text ? true : false}
         }
         @process.wrap >
     }
