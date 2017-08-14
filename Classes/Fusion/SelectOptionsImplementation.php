@@ -32,6 +32,9 @@ class SelectOptionsImplementation extends AbstractFusionObject
         }
         $output = '';
         foreach ($element->getProperties()['options'] as $optionValue => $originalLabel) {
+            if ($originalLabel === null) {
+                $originalLabel = '';
+            }
             $translationId = sprintf('forms.elements.%s.options.%s', $element->getIdentifier(), $optionValue);
             $optionLabel = htmlspecialchars($this->translate($element, $translationId, $originalLabel), ENT_QUOTES);
             $context['optionValue'] = $optionValue;
