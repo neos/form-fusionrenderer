@@ -60,7 +60,7 @@ class FusionFormRenderer implements RendererInterface
                 throw new FusionException();
             }
             $fusionRuntime->pushContext('formRuntime', $this->formRuntime);
-            $output = $fusionRuntime->render('form');
+            $output = $fusionRuntime->render('neos_form');
             $fusionRuntime->popContext();
             return $output;
         }
@@ -75,7 +75,7 @@ class FusionFormRenderer implements RendererInterface
             $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/ContainerElements',
             $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/Elements',
         ]);
-        $fusionView->setFusionPath('form');
+        $fusionView->setFusionPath('neos_form');
         $fusionView->assign('formRuntime', $formRuntime);
         $output = $fusionView->render();
         #$output = $formRuntime->invokeRenderCallbacks($output, $formRuntime);
