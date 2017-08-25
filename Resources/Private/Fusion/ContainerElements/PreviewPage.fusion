@@ -18,21 +18,92 @@ prototype(Neos.Form:PreviewPage) < prototype(Neos.Form.FusionRenderer:AbstractSe
             valueRows = Neos.Fusion:Collection {
                 collection = ${containerElement.rootForm.renderablesRecursively}
                 itemName = 'element'
-                itemRenderer = Neos.Fusion:Tag {
-                    tagName = 'tr'
-                    content = Neos.Fusion:Array {
-                        1 = Neos.Fusion:Tag {
-                            tagName = 'td'
-                            content = ${element.label}
-                        }
-                        2 = Neos.Fusion:Tag {
-                            tagName = 'td'
-                            content = ${Neos.Form.elementValue(formRuntime, element)}
-                        }
+                itemRenderer = Neos.Fusion:Case {
+                    page {
+                        renderer = Neos.Form:PreviewPage.PageRow
+                        condition = ${element.type == 'Neos.Form:Page'}
+                    }
+                    default {
+                        renderer = Neos.Form:PreviewPage.ElementRow
+                        condition = ${true}
                     }
                 }
             }
             @process.wrap = ${'<output>' + value + '</output>'}
         }
+    }
+}
+
+prototype(Neos.Form:PreviewPage.PageRow) < prototype(Neos.Fusion:Tag) {
+    tagName = 'tr'
+    content = Neos.Fusion:Tag {
+        tagName = 'th'
+        attributes.colspan = 2
+        content = ${element.label ? element.label : element.identifier}
+    }
+}
+
+prototype(Neos.Form:PreviewPage.ElementRow) < prototype(Neos.Fusion:Tag) {
+    tagName = 'tr'
+    content = Neos.Fusion:Array {
+        1 = Neos.Fusion:Tag {
+            tagName = 'td'
+            content = ${element.label}
+        }
+        2 = Neos.Fusion:Tag {
+            tagName = 'td'
+            content = Neos.Form:PreviewPage.ElementValue
+        }
+    }
+}
+
+prototype(Neos.Form:PreviewPage.ElementValue) < prototype(Neos.Fusion:Case) {
+    @context.elementValue = ${Neos.Form.elementValue(formRuntime, element)}
+    imageUpload {
+        renderer = Neos.Fusion:Tag {
+            tagName = 'a'
+            attributes {
+                href = Neos.Fusion:ResourceUri {
+                    resource = ${elementValue.resource}
+                }
+                target = '_blank'
+            }
+            content = Neos.Neos:ImageTag {
+                asset = ${elementValue}
+                maximumWidth = 200
+            }
+        }
+        condition = ${elementValue && element.type == 'Neos.Form:ImageUpload'}
+    }
+    fileUpload {
+        renderer = Neos.Fusion:Tag {
+            tagName = 'a'
+            attributes {
+                href = Neos.Fusion:ResourceUri {
+                    resource = ${elementValue}
+                }
+                target = '_blank'
+            }
+            content = ${elementValue.fileName}
+        }
+        condition = ${elementValue && element.type == 'Neos.Form:FileUpload'}
+    }
+    dateTime {
+        renderer = Neos.Fusion:Value {
+            value = ${Date.format(elementValue, element.properties.dateFormat)}
+        }
+        condition = ${elementValue && element.type == 'Neos.Form:DatePicker'}
+    }
+    arrayValue {
+        renderer = Neos.Fusion:Value {
+            value = ${Array.join(elementValue, ', ')}
+        }
+        condition = ${Type.isArray(elementValue)}
+    }
+    default {
+        renderer = Neos.Fusion:Value {
+            value = ${elementValue}
+        }
+        condition = ${!Type.isObject(elementValue)}
     }
 }
