@@ -6,6 +6,7 @@ use Neos\Error\Messages\Result;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\I18n\Translator;
 use Neos\Flow\Mvc\ActionRequest;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
 use Neos\Flow\ResourceManagement\Exception as ResourceException;
 use Neos\Form\Core\Model\FormElementInterface;
 use Neos\Form\Core\Model\Renderable\AbstractRenderable;
@@ -22,24 +23,44 @@ class FormHelper implements ProtectedContextAwareInterface
      */
     protected $translator;
 
+    /**
+     * @Flow\Inject
+     * @var PersistenceManagerInterface
+     */
+    protected $persistenceManager;
+
     public function elementValue(FormRuntime $formRuntime, RootRenderableInterface $element)
     {
         $request = $formRuntime->getRequest();
         /** @var Result $validationResults */
         $validationResults = $formRuntime->getRequest()->getInternalArgument('__submittedArgumentValidationResults');
-        if ($validationResults !== null && $validationResults->hasErrors()) {
-            return $this->getLastSubmittedFormData($request, $element);
+        if ($validationResults !== null && $validationResults->forProperty($element->getIdentifier())->hasErrors()) {
+            return $this->getLastSubmittedFormData($request, $element->getIdentifier());
         }
         return ObjectAccess::getPropertyPath($formRuntime, $element->getIdentifier());
     }
 
-    private function getLastSubmittedFormData(ActionRequest $request, RootRenderableInterface $element)
+    private function getLastSubmittedFormData(ActionRequest $request, string $propertyPath)
     {
         $submittedArguments = $request->getInternalArgument('__submittedArguments');
         if ($submittedArguments === null) {
             return null;
         }
-        return ObjectAccess::getPropertyPath($submittedArguments, $element->getIdentifier());
+        return ObjectAccess::getPropertyPath($submittedArguments, $propertyPath);
+    }
+
+    public function identifier($object): string
+    {
+        if (is_array($object) && isset($object['__identity'])) {
+            return $object['__identity'];
+        }
+        if (is_string($object)) {
+            return $object;
+        }
+        if (!is_object($object)) {
+            return '';
+        }
+        return (string)$this->persistenceManager->getIdentifierByObject($object);
     }
 
     public function hasValidationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): bool

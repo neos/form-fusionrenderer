@@ -1,10 +1,35 @@
 prototype(Neos.Form:ImageUpload) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
+        uploadedImagePreview = Neos.Fusion:Tag {
+            @position = 'before field'
+            tagName = 'a'
+            attributes {
+                href = Neos.Fusion:ResourceUri {
+                    resource = ${elementValue.resource}
+                }
+                target = '_blank'
+            }
+            content = Neos.Neos:ImageTag {
+                asset = ${elementValue}
+                maximumWidth = 200
+            }
+            @if.hasUploadedImage = ${elementValue ? true : false}
+        }
+        uploadedImageHiddenField =  Neos.Fusion:Tag {
+            @position = 'before field'
+            tagName = 'input'
+            attributes {
+                type = 'hidden'
+                name = ${elementName + '[resource][originallySubmittedResource][__identity]'}
+                value = ${Neos.Form.identifier(elementValue.resource)}
+            }
+            @if.hasUploadedResource = ${elementValue ? true : false}
+        }
         field {
             tagName = 'input'
             attributes {
                 type = 'file'
-                name = ${elementName}
+                name = ${elementName + '[resource]'}
             }
         }
     }
