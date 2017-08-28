@@ -5,6 +5,14 @@ use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
+/**
+ * A Fusion implementation that invokes the Form "RenderCallbacks", can be used as processor like
+ *
+ * someElement.@process.renderCallbacks = Neos.Form.FusionRenderer:RenderCallbacks {
+ *   formRuntime = ${formRuntime}
+ *   formElement = ${containerElement}
+ * }
+ */
 class RenderCallbacksImplementation extends AbstractFusionObject
 {
     private function getValue(): string

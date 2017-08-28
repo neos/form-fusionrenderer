@@ -8,6 +8,10 @@ use Neos\Form\Core\Model\FormElementInterface;
 use Neos\Fusion\Exception as FusionException;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
 
+/**
+ * A Fusion implementation of a "Select Option" collection
+ * This object can be used to render Multi- or Single-Select Form Elements, i.e. it makes it easier to localize and pre-select the right options.
+ */
 class SelectOptionsImplementation extends AbstractFusionObject
 {
 

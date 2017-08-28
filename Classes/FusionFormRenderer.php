@@ -11,6 +11,17 @@ use Neos\Fusion\Core\Runtime;
 use Neos\Fusion\Exception as FusionException;
 use Neos\Fusion\View\FusionView;
 
+/**
+ * The main class of this package implementing the custom Form Renderer
+ *
+ * Usage:
+ * This class is usually not instantiated manually but created via FormRuntime::render()
+ * if the used Form Preset define this as rendererClassName
+ *
+ * If the root element of the corresponding FormDefinition has a "_fusionRuntime" rendering option
+ * that FusionRuntime will be used to render the Fusion prototypes.
+ * Otherwise a FusionView is used to render the "neos_form" Fusion path with the given FormRuntime
+ */
 class FusionFormRenderer implements RendererInterface
 {
     /**
@@ -44,20 +55,27 @@ class FusionFormRenderer implements RendererInterface
         return $this->formRuntime;
     }
 
+    /**
+     * Renders the given $formRuntime using Fusion
+     *
+     * If the $formRuntime specifies a "_fusionRuntime" rendering option that FusionRuntime
+     * will be used, otherwise a new FusionView is instantiated.
+     *
+     * @param RootRenderableInterface $formRuntime
+     * @return string
+     * @throws FusionException
+     */
     public function renderRenderable(RootRenderableInterface $formRuntime): string
     {
-        $formRuntime->beforeRendering($this->formRuntime);
-
         if (!$formRuntime instanceof FormRuntime) {
-            // TODO exception
-            return '';
+            throw new FusionException(sprintf('Expected instance of FormRuntime, got %s', is_object($formRuntime) ? get_class($formRuntime) : gettype($formRuntime)), 1503932881);
         }
+        $formRuntime->beforeRendering($this->formRuntime);
         $renderingOptions = $this->formRuntime->getRenderingOptions();
         if (isset($renderingOptions['_fusionRuntime'])) {
             $fusionRuntime = $renderingOptions['_fusionRuntime'];
             if (!$fusionRuntime instanceof Runtime) {
-                // TODO
-                throw new FusionException();
+                throw new FusionException(sprintf('Expected instance of FusionRuntime, got %s', is_object($fusionRuntime) ? get_class($formRuntime) : gettype($fusionRuntime)), 1503932883);
             }
             $fusionRuntime->pushContext('formRuntime', $this->formRuntime);
             $output = $fusionRuntime->render('neos_form');
@@ -77,8 +95,6 @@ class FusionFormRenderer implements RendererInterface
         ]);
         $fusionView->setFusionPath('neos_form');
         $fusionView->assign('formRuntime', $formRuntime);
-        $output = $fusionView->render();
-        #$output = $formRuntime->invokeRenderCallbacks($output, $formRuntime);
-        return $output;
+        return $fusionView->render();
     }
 }

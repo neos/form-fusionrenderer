@@ -14,6 +14,9 @@ use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Utility\ObjectAccess;
 
+/**
+ * Eel Helper with some convenience methods for Fusion based Form rendering
+ */
 class FormHelper implements ProtectedContextAwareInterface
 {
 
@@ -29,6 +32,14 @@ class FormHelper implements ProtectedContextAwareInterface
      */
     protected $persistenceManager;
 
+    /**
+     * Returns the value of a given Form Element.
+     * If there are validation errors for the element, the previously submitted value will be returned.
+     *
+     * @param FormRuntime $formRuntime The current FormRuntime instance
+     * @param RootRenderableInterface $element The element to fetch the value for
+     * @return mixed|null
+     */
     public function elementValue(FormRuntime $formRuntime, RootRenderableInterface $element)
     {
         $request = $formRuntime->getRequest();
@@ -40,6 +51,14 @@ class FormHelper implements ProtectedContextAwareInterface
         return ObjectAccess::getPropertyPath($formRuntime, $element->getIdentifier());
     }
 
+    /**
+     * Return the submitted data for a given $propertyPath
+     * @see elementValue()
+     *
+     * @param ActionRequest $request
+     * @param string $propertyPath
+     * @return mixed|null
+     */
     private function getLastSubmittedFormData(ActionRequest $request, string $propertyPath)
     {
         $submittedArguments = $request->getInternalArgument('__submittedArguments');
@@ -49,6 +68,55 @@ class FormHelper implements ProtectedContextAwareInterface
         return ObjectAccess::getPropertyPath($submittedArguments, $propertyPath);
     }
 
+    /**
+     * Whether the given Form Element has validation errors
+     *
+     * @param FormRuntime $formRuntime
+     * @param RootRenderableInterface $element
+     * @return bool
+     */
+    public function hasValidationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): bool
+    {
+        return $this->getValidationResult($formRuntime, $element)->hasErrors();
+    }
+
+    /**
+     * Returns all validation errors for a given Form Element
+     *
+     * @param FormRuntime $formRuntime
+     * @param RootRenderableInterface $element
+     * @return array
+     */
+    public function validationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): array
+    {
+        return $this->getValidationResult($formRuntime, $element)->getErrors();
+    }
+
+    /**
+     * Retrieves the validation result object for a given Form Element
+     * @see hasValidationErrors()
+     * @see validationErrors()
+     *
+     * @param FormRuntime $formRuntime
+     * @param RootRenderableInterface $element
+     * @return Result
+     */
+    private function getValidationResult(FormRuntime $formRuntime, RootRenderableInterface $element): Result
+    {
+        /** @var Result $validationResults */
+        $validationResults = $formRuntime->getRequest()->getInternalArgument('__submittedArgumentValidationResults');
+        if ($validationResults === null) {
+            return new Result();
+        }
+        return $validationResults->forProperty($element->getIdentifier());
+    }
+
+    /**
+     * Returns the persistence identifier for a given object (Or an empty string if the given $object is no entity)
+     *
+     * @param mixed $object
+     * @return string
+     */
     public function identifier($object): string
     {
         if (is_array($object) && isset($object['__identity'])) {
@@ -63,31 +131,25 @@ class FormHelper implements ProtectedContextAwareInterface
         return (string)$this->persistenceManager->getIdentifierByObject($object);
     }
 
-    public function hasValidationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): bool
-    {
-        return $this->getValidationResult($formRuntime, $element)->hasErrors();
-    }
-
-    public function validationErrors(FormRuntime $formRuntime, RootRenderableInterface $element): array
-    {
-        return $this->getValidationResult($formRuntime, $element)->getErrors();
-    }
-
-    private function getValidationResult(FormRuntime $formRuntime, RootRenderableInterface $element): Result
-    {
-        /** @var Result $validationResults */
-        $validationResults = $formRuntime->getRequest()->getInternalArgument('__submittedArgumentValidationResults');
-        if ($validationResults === null) {
-            return new Result();
-        }
-        return $validationResults->forProperty($element->getIdentifier());
-    }
-
+    /**
+     * Translates the property of a given Form Element and htmlspecialchar's the result
+     *
+     * @param AbstractRenderable $element
+     * @param string $property
+     * @return string
+     */
     public function translateAndEscapeProperty(AbstractRenderable $element, string $property): string
     {
         return $this->escape($this->translateProperty($element, $property));
     }
 
+    /**
+     * Translates the property of a given Form Element
+     *
+     * @param AbstractRenderable $element
+     * @param string $property
+     * @return string
+     */
     public function translateProperty(AbstractRenderable $element, string $property): string
     {
         if ($property === 'label') {
@@ -104,6 +166,14 @@ class FormHelper implements ProtectedContextAwareInterface
         return $this->translate($element, $translationId, $defaultValue);
     }
 
+    /**
+     * Translates arbitrary $tanslationIds using the package configured in the Form Element's renderingOptions
+     *
+     * @param RootRenderableInterface $element
+     * @param string $translationId
+     * @param string $defaultValue
+     * @return string
+     */
     public function translate(RootRenderableInterface $element, string $translationId, string $defaultValue): string
     {
         $renderingOptions = $element->getRenderingOptions();
@@ -118,6 +188,12 @@ class FormHelper implements ProtectedContextAwareInterface
         return $translation ?? $defaultValue;
     }
 
+    /**
+     * Htmlspecialchar's a given $string
+     *
+     * @param string $string
+     * @return string
+     */
     public function escape(string $string): string
     {
         return htmlspecialchars($string, ENT_QUOTES);
