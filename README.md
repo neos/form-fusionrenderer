@@ -6,6 +6,10 @@ The Flow Form Framework comes with a preset that uses [Fluid](http://flowframewo
 to render Form Elements by default.
 This package allows to use `Fusion` instead to render Forms.
 
+## Related Packages
+
+Make sure to have a look at the other Flow Form Framework [Related Packages](https://github.com/neos/form/#related-packages)
+
 ## Usage
 
 Install this package using [composer](https://getcomposer.org/):
