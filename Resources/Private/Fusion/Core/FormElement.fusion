@@ -71,7 +71,7 @@ prototype(Neos.Form.FusionRenderer:FormElementValidationErrors) < prototype(Neos
     content = Neos.Fusion:Collection {
         collection = ${elementValidationErrors}
         itemName = 'error'
-        itemRenderer =  ${error}
+        itemRenderer = ${Translation.translate(error.code, null, error.arguments, 'ValidationErrors', element.renderingOptions.validationErrorTranslationPackage)}
     }
     @if.hasValidationErrors = ${elementHasValidationErrors}
 }
