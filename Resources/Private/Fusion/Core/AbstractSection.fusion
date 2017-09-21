@@ -1,8 +1,9 @@
 prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag) {
     @context.containerElement = ${this.containerElement}
     tagName = 'fieldset'
-    attributes.class =  Neos.Fusion:Array {
-        defaultClass = ${containerElement.properties.elementClassAttribute ? containerElement.properties.elementClassAttribute : null}
+    attributes {
+        class = ${containerElement.properties.elementClassAttribute}
+        class.@if.hasCustomClass = ${containerElement.properties.elementClassAttribute ? true : false}
     }
     content = Neos.Fusion:Array {
         legend = Neos.Fusion:Tag {
