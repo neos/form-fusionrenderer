@@ -72,6 +72,8 @@ to make it easier to adjust the rendering for all elements.
 
 > **Tip:** Have a look at the existing Form Element Fusion Prototypes to see how simple they are
 
+**Important:** When overriding Fusion prototypes make sure that the [Package loading order](http://flowframework.readthedocs.io/en/stable/TheDefinitiveGuide/PartIII/PackageManagement.html#loading-order) is set correctly (i.e. that the package with the customizations has a dependency to the `neos/form-fusionrenderer` package) or else they might not have any effect.
+
 #### Example: Render Form Element label as placeholder
 
 To render Form Element labels as placeholders of the corresponding input field,
