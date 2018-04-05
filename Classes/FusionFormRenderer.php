@@ -75,7 +75,7 @@ class FusionFormRenderer implements RendererInterface
         if (isset($renderingOptions['_fusionRuntime'])) {
             $fusionRuntime = $renderingOptions['_fusionRuntime'];
             if (!$fusionRuntime instanceof Runtime) {
-                throw new FusionException(sprintf('Expected instance of FusionRuntime, got %s', is_object($fusionRuntime) ? get_class($formRuntime) : gettype($fusionRuntime)), 1503932883);
+                throw new FusionException(sprintf('Expected instance of FusionRuntime, got %s', is_object($fusionRuntime) ? get_class($fusionRuntime) : gettype($fusionRuntime)), 1503932883);
             }
             $fusionRuntime->pushContext('formRuntime', $this->formRuntime);
             $output = $fusionRuntime->render('neos_form');
