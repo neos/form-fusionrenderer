@@ -14,6 +14,7 @@ prototype(Neos.Form.FusionRenderer:FormElement) < prototype(Neos.Fusion:Array) {
     }
 
     @process.renderCallbacks = Neos.Form.FusionRenderer:RenderCallbacks {
+        @position = 'end'
         formRuntime = ${formRuntime}
         formElement = ${element}
     }
