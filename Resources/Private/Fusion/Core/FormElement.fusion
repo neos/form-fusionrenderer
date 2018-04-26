@@ -7,15 +7,15 @@ prototype(Neos.Form.FusionRenderer:FormElement) < prototype(Neos.Fusion:Array) {
     label = Neos.Form.FusionRenderer:FormElementLabel
     fieldContainer = Neos.Form.FusionRenderer:FormElementFieldContainer
 
-    @process.renderCallbacks = Neos.Form.FusionRenderer:RenderCallbacks {
-        formRuntime = ${formRuntime}
-        formElement = ${element}
-    }
-
     @process.wrap = Neos.Fusion:Tag {
         tagName = 'div'
         attributes.class = ${hasValidationErrors ? 'clearfix error' : 'clearfix'}
         content = ${value}
+    }
+
+    @process.renderCallbacks = Neos.Form.FusionRenderer:RenderCallbacks {
+        formRuntime = ${formRuntime}
+        formElement = ${element}
     }
 
 }
