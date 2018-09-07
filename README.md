@@ -18,17 +18,17 @@ Install this package using [composer](https://getcomposer.org/):
 composer require neos/form-fusionrenderer
 ```
 
-> **Note:** This package requires the `neos/form` package in version 5.0 or higher
+> **Note:** This package requires the `neos/form` package in version 4.1 or higher
 
 Afterwards a new Form preset `fusion` is available to be used/extended.
 This preset extends the `default` preset of the Flow Form Framework and it
 comes with a Fusion prototype for each of the `default` Form Element definitions.
 
-When using it together with the `Neos.NodeTypes` package the preset can
+When using it together with the `Neos.NodeTypes.Form` package the preset can
 be changed like this:
 
 ```fusion
-prototype(Neos.NodeTypes:Form) {
+prototype(Neos.NodeTypes.Form:Form) {
   presetName = 'fusion'
 }
 ```
