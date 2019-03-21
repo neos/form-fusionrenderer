@@ -1,5 +1,12 @@
 Neos:
   Form:
+    FusionRenderer:
+      fusionPathPatterns:
+        Neos.Fusion:Private/Fusion: true
+        Neos.Form.FusionRenderer:Private/Fusion/Core: true
+        Neos.Form.FusionRenderer:Private/Fusion/ContainerElements: true
+        Neos.Form.FusionRenderer:Private/Fusion/Elements: true
+
     presets:
       'fusion':
         title: 'Fusion based Form Elements'
