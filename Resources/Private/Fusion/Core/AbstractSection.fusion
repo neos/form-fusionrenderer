@@ -8,7 +8,7 @@ prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag)
     content = Neos.Fusion:Array {
         legend = Neos.Fusion:Tag {
             tagName = 'legend'
-            content = ${Neos.Form.translateAndEscapeProperty(containerElement, 'label')}
+            content = ${Neos.Form.FusionRenderer.translateAndEscapeProperty(containerElement, 'label')}
             @if.hasLabel = ${containerElement.label ? true : false}
         }
         elements = Neos.Fusion:Collection {

@@ -21,7 +21,7 @@ prototype(Neos.Form:ImageUpload) < prototype(Neos.Form.FusionRenderer:FormElemen
             attributes {
                 type = 'hidden'
                 name = ${elementName + '[resource][originallySubmittedResource][__identity]'}
-                value = ${Neos.Form.identifier(elementValue.resource)}
+                value = ${Neos.Form.FusionRenderer.identifier(elementValue.resource)}
             }
             @if.hasUploadedResource = ${elementValue ? true : false}
         }
