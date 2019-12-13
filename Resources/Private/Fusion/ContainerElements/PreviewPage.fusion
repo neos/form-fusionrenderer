@@ -96,13 +96,13 @@ prototype(Neos.Form:PreviewPage.ElementValue) < prototype(Neos.Fusion:Case) {
     }
     arrayValue {
         renderer = Neos.Fusion:Value {
-            value = ${Array.join(elementValue, ', ')}
+            value = ${String.htmlSpecialChars(Array.join(elementValue, ', '))}
         }
         condition = ${Type.isArray(elementValue)}
     }
     default {
         renderer = Neos.Fusion:Value {
-            value = ${elementValue}
+            value = ${String.htmlSpecialChars(elementValue)}
         }
         condition = ${!Type.isObject(elementValue)}
     }
