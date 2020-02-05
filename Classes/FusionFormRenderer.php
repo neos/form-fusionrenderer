@@ -88,13 +88,10 @@ class FusionFormRenderer implements RendererInterface
 
         $fusionView = new FusionView();
         $fusionView->setControllerContext($this->controllerContext);
-        $fusionView->disableFallbackView();
         $fusionView->setPackageKey('Neos.Form.FusionRenderer');
         $fusionView->setFusionPathPatterns([
             $this->packageManager->getPackage('Neos.Fusion')->getResourcesPath() . 'Private/Fusion',
-            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/Core',
-            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/ContainerElements',
-            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion/Elements',
+            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion',
         ]);
         $fusionView->setFusionPath('neos_form');
         $fusionView->assign('formRuntime', $formRuntime);
