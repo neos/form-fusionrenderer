@@ -133,7 +133,19 @@ Trying to render it, however, will lead to an exception:
 The Fusion object `Your.Package:EmailAddress` is not completely defined (missing property `@class`). Most likely you didn't inherit from a basic object.
 ```
 
-Let's change this by defining the Fusion object:
+Let's change this.
+
+First configure FusionRenderer to include your custom Fusion code:
+
+```yaml
+Neos:
+  Form:
+    FusionRenderer:
+      fusionAutoInclude:
+        'Your.Package': true
+```
+
+then define the rendering in your own fusion:
 
 *EmailAddressFormElement.fusion*:
 
