@@ -40,6 +40,12 @@ class FusionFormRenderer implements RendererInterface
      */
     protected $packageManager;
 
+    /**
+     * @Flow\InjectConfiguration(path="fusionAutoInclude")
+     * @var array
+     */
+    protected $packagesForFusionAutoInclude;
+
     public function setControllerContext(ControllerContext $controllerContext)
     {
         $this->controllerContext = $controllerContext;
@@ -89,10 +95,11 @@ class FusionFormRenderer implements RendererInterface
         $fusionView = new FusionView();
         $fusionView->setControllerContext($this->controllerContext);
         $fusionView->setPackageKey('Neos.Form.FusionRenderer');
-        $fusionView->setFusionPathPatterns([
-            $this->packageManager->getPackage('Neos.Fusion')->getResourcesPath() . 'Private/Fusion',
-            $this->packageManager->getPackage('Neos.Form.FusionRenderer')->getResourcesPath() . 'Private/Fusion',
-        ]);
+
+        $fusionView->setFusionPathPatterns(array_map(function (string $value) {
+            return $this->packageManager->getPackage($value)->getResourcesPath() . 'Private/Fusion';
+        }, array_keys(array_filter($this->packagesForFusionAutoInclude))));
+
         $fusionView->setFusionPath('neos_form');
         $fusionView->assign('formRuntime', $formRuntime);
         return $fusionView->render();
