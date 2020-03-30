@@ -5,7 +5,7 @@ prototype(Neos.Form:MultiLineText) < prototype(Neos.Form.FusionRenderer:FormElem
             attributes {
                 name = ${elementName}
             }
-            content = ${elementValue}
+            content = ${String.htmlSpecialChars(elementValue)}
         }
     }
 }
