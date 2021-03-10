@@ -6,6 +6,8 @@ prototype(Neos.Form:DatePicker) < prototype(Neos.Form.FusionRenderer:FormElement
                 type = 'date'
                 name = ${elementName}
                 value = ${elementValue}
+                value.@process.format = ${Date.format(value, 'Y-m-d')}
+                value.@process.format.@if.isDateTime = ${Type.className(elementValue) == 'DateTime'}
             }
         }
     }
