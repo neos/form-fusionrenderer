@@ -11,6 +11,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
     content = Neos.Fusion:Array {
         formHiddenFields = Neos.Fusion:Array {
             formStateHiddenField = Neos.Form.FusionRenderer:FormStateHiddenField
+            formCsrfTokenHiddenField = Neos.Form.FusionRenderer:CsrfHiddenField
             @process.wrap = ${'<div style="display:none">' + value + '</div>'}
         }
         pages = Neos.Fusion:Collection {
