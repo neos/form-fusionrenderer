@@ -39,6 +39,15 @@ prototype(Neos.Form.FusionRenderer:FormStateHiddenField) < prototype(Neos.Fusion
     }
 }
 
+prototype(Neos.Form.FusionRenderer:CsrfHiddenField) < prototype(Neos.Fusion:Tag) {
+    tagName = 'input'
+    attributes {
+        type = 'hidden'
+        name = ${'--' + formRuntime.identifier + '[__csrfToken]'}
+        value = ${Security.csrfToken()}
+    }
+    @if.isAuthenticated = ${Security.isAuthenticated()}
+}
 
 prototype(Neos.Form.FusionRenderer:RenderCallbacks) {
     @class = 'Neos\\Form\\FusionRenderer\\Fusion\\RenderCallbacksImplementation'
