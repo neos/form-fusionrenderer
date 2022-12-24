@@ -68,10 +68,16 @@ class SelectOptionsImplementation extends AbstractFusionObject
 
     private function isOptionSelected($optionValue): bool
     {
+        // this method compares values "type unsafe" because due to the
+        // nature of web requests numbers and strings cannot really be
+        // distinguished. This leads to false negatives if option values
+        // are given as numbers but incoming data is a string.
         $elementValue = ($this->runtime->getCurrentContext())['elementValue'] ?? null;
-        if ($optionValue === $elementValue) {
+        /** @noinspection TypeUnsafeComparisonInspection */
+        if ($optionValue == $elementValue) {
             return true;
         }
+        /** @noinspection TypeUnsafeArraySearchInspection */
         if (is_array($elementValue) && in_array($optionValue, $elementValue)) {
             return true;
         }
