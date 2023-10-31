@@ -1,4 +1,4 @@
-prototype(Neos.Form.FusionRenderer:FormElement) < prototype(Neos.Fusion:Array) {
+prototype(Neos.Form.FusionRenderer:FormElement) < prototype(Neos.Fusion:Join) {
     @context.elementName = ${'--' + formRuntime.identifier + '[' + element.identifier + ']'}
     @context.elementValue = ${Neos.Form.FusionRenderer.elementValue(formRuntime, element)}
     @context.elementValidationErrors = ${Neos.Form.FusionRenderer.validationErrors(formRuntime, element)}
@@ -26,7 +26,7 @@ prototype(Neos.Form.FusionRenderer:FormElementLabel) < prototype(Neos.Fusion:Tag
     attributes {
         for = ${element.uniqueIdentifier}
     }
-    content = Neos.Fusion:Array {
+    content = Neos.Fusion:Join {
         value = ${Neos.Form.FusionRenderer.translateAndEscapeProperty(element, 'label')}
         requiredFlag = Neos.Form.FusionRenderer:RequiredFlag
         requiredFlag.@if.isRequired = ${element.required}
@@ -39,7 +39,7 @@ prototype(Neos.Form.FusionRenderer:RequiredFlag) < prototype(Neos.Fusion:Tag) {
     content = '*'
 }
 
-prototype(Neos.Form.FusionRenderer:FormElementFieldContainer) < prototype(Neos.Fusion:Array) {
+prototype(Neos.Form.FusionRenderer:FormElementFieldContainer) < prototype(Neos.Fusion:Join) {
     field = Neos.Form.FusionRenderer:FormElementField
     validationErrors = Neos.Form.FusionRenderer:FormElementValidationErrors
     elementDescription = Neos.Form.FusionRenderer:FormElementDescription
@@ -54,7 +54,7 @@ prototype(Neos.Form.FusionRenderer:FormElementFieldContainer) < prototype(Neos.F
 prototype(Neos.Form.FusionRenderer:FormElementField) < prototype(Neos.Fusion:Tag) {
     attributes {
         placeholder = ${element.properties.placeholder}
-        class = Neos.Fusion:Array {
+        class = Neos.Fusion:Join {
             defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
             errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
             errorClass.@process.whitespace = ${' ' + value}
@@ -69,8 +69,8 @@ prototype(Neos.Form.FusionRenderer:FormElementValidationErrors) < prototype(Neos
     attributes {
         class = 'help-inline'
     }
-    content = Neos.Fusion:Collection {
-        collection = ${elementValidationErrors}
+    content = Neos.Fusion:Loop {
+        items = ${elementValidationErrors}
         itemName = 'error'
         itemRenderer = ${Translation.translate(error.code, null, error.arguments, 'ValidationErrors', element.renderingOptions.validationErrorTranslationPackage)}
     }
