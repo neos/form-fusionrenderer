@@ -10,12 +10,12 @@ prototype(Neos.Form:MultipleSelectCheckboxes) < prototype(Neos.Form.FusionRender
                     tagName = 'li'
                     content = Neos.Fusion:Tag {
                         tagName = 'label'
-                        content = Neos.Fusion:Array {
+                        content = Neos.Fusion:Join {
                             radioButton = Neos.Fusion:Tag {
                                 tagName = 'input'
                                 attributes {
                                     type = 'checkbox'
-                                    class = Neos.Fusion:Array {
+                                    class = Neos.Fusion:Join {
                                         defaultClass = ${element.properties.elementClassAttribute ? element.properties.elementClassAttribute : null}
                                         errorClass = ${element.properties.elementErrorClassAttribute ? element.properties.elementErrorClassAttribute : 'error'}
                                         errorClass.@process.whitespace = ${' ' + value}

@@ -2,6 +2,6 @@ prototype(Neos.Form.FusionRenderer:SelectionElement) < prototype(Neos.Form.Fusio
 
 }
 
-prototype(Neos.Form.FusionRenderer:SelectOptions) < prototype(Neos.Fusion:Collection) {
+prototype(Neos.Form.FusionRenderer:SelectOptions) < prototype(Neos.Fusion:Loop) {
     @class = 'Neos\\Form\\FusionRenderer\\Fusion\\SelectOptionsImplementation'
 }

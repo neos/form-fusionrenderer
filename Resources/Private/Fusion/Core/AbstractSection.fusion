@@ -5,13 +5,13 @@ prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag)
         class = ${containerElement.properties.elementClassAttribute}
         class.@if.hasCustomClass = ${containerElement.properties.elementClassAttribute ? true : false}
     }
-    content = Neos.Fusion:Array {
+    content = Neos.Fusion:Join {
         legend = Neos.Fusion:Tag {
             tagName = 'legend'
             content = ${Neos.Form.FusionRenderer.translateAndEscapeProperty(containerElement, 'label')}
             @if.hasLabel = ${containerElement.label ? true : false}
         }
-        elements = Neos.Fusion:Collection {
+        elements = Neos.Fusion:Loop {
             collection = ${containerElement.elements}
             itemName = 'element'
             itemRenderer = Neos.Fusion:Renderer {

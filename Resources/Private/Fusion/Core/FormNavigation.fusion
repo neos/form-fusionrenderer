@@ -1,7 +1,7 @@
 prototype(Neos.Form.FusionRenderer:FormNavigation) < prototype(Neos.Fusion:Tag) {
     tagName = 'nav'
     attributes.class = 'form-navigation'
-    content = Neos.Fusion:Array {
+    content = Neos.Fusion:Join {
         previousButton = Neos.Form.FusionRenderer:FormNavigationButton {
             label = ${Neos.Form.FusionRenderer.translate(formRuntime, 'forms.navigation.previousPage', 'Previous page')}
             class = ${formRuntime.renderingOptions.previousButtonClassAttribute}
