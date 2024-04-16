@@ -12,7 +12,7 @@ prototype(Neos.Form.FusionRenderer:AbstractSection) < prototype(Neos.Fusion:Tag)
             @if.hasLabel = ${containerElement.label ? true : false}
         }
         elements = Neos.Fusion:Loop {
-            collection = ${containerElement.elements}
+            items = ${containerElement.elements}
             itemName = 'element'
             itemRenderer = Neos.Fusion:Renderer {
                 type = ${element.type}
