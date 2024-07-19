@@ -32,6 +32,12 @@ class FormHelper implements ProtectedContextAwareInterface
      */
     protected $persistenceManager;
 
+	/**
+	 * @var ?array
+	 * @Flow\InjectConfiguration(path="FusionRenderer.formHelper.mimeTypes", package="Neos.Form")
+	 */
+	protected ?array $mimeTypes;
+
     /**
      * Returns the value of a given Form Element.
      * If there are validation errors for the element, the previously submitted value will be returned.
@@ -198,6 +204,30 @@ class FormHelper implements ProtectedContextAwareInterface
     {
         return htmlspecialchars($string, ENT_QUOTES);
     }
+
+	/**
+	 * Get accept string for input attribute accept based on the allowed extensions array
+	 *
+	 * @param array $allowedExtensions
+	 * @param bool $asFileExtension
+	 * @param bool $asMimeType
+	 * @return string
+	 */
+	public function getAcceptFromAllowedExtensions(array $allowedExtensions, bool $asFileExtension = true, bool $asMimeType = true): string {
+		$accept = [];
+
+		foreach ($allowedExtensions as $key => $extension) {
+			if ($asFileExtension) {
+				$accept[] = '.' . $extension;
+			}
+
+			if ($asMimeType) {
+				$accept[] = $this->mimeTypes && array_key_exists($extension, $this->mimeTypes) ? $this->mimeTypes[$extension] : null;
+			}
+		}
+
+		return implode(', ', $accept);
+	}
 
     /**
      * @param string $methodName

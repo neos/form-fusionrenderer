@@ -17,6 +17,13 @@ Neos:
       fusionAutoInclude:
         'Neos.Fusion': true
         'Neos.Form.FusionRenderer': true
+      formHelper:
+        mimeTypes:
+          pdf: 'application/pdf'
+          doc: 'application/msword'
+          jpeg: 'image/jpeg'
+          png: 'image/png'
+          bmp: 'image/bmp'
 
   Neos:
     fusion:
