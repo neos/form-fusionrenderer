@@ -20,7 +20,12 @@ Neos:
       formHelper:
         mimeTypes:
           pdf: 'application/pdf'
+          xls: 'application/msexcel'
+          xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
           doc: 'application/msword'
+          docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+          odt: 'application/vnd.oasis.opendocument.text'
+          csv: 'text/csv'
           jpeg: 'image/jpeg'
           png: 'image/png'
           bmp: 'image/bmp'
