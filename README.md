@@ -207,7 +207,7 @@ And the corresponding Fusion object to render the Form Element:
 ```fusion
 prototype(Your.Package:NameAndTitle) < prototype(Neos.Form.FusionRenderer:FormElement) {
     fieldContainer {
-        field = Neos.Fusion:Array {
+        field = Neos.Fusion:Join {
             title = Neos.Form.FusionRenderer:FormElementField {
                 tagName = 'select'
                 attributes {
@@ -243,7 +243,7 @@ prototype(Your.Package:NameAndTitle) < prototype(Neos.Form.FusionRenderer:FormEl
 }
 ```
 
-In this case we replace the `field` to be an `Neos.Fusion:Array`.
+In this case we replace the `field` to be an `Neos.Fusion:Join`.
 
 > **Note:** The element type of the composite element will be `array`, you can refer to the
   individual values (e.g. in the ConfirmationFinisher message) via dot-syntax (for example `theElement.givenName`)

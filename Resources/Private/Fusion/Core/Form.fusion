@@ -27,7 +27,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
 
 prototype(Neos.Form:FormEditMode) < prototype(Neos.Form:Form) {
     content.navigation >
-    content.pages.collection = ${formRuntime.pages}
+    content.pages.items = ${formRuntime.pages}
 }
 
 prototype(Neos.Form.FusionRenderer:FormStateHiddenField) < prototype(Neos.Fusion:Tag) {
