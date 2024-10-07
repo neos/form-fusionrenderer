@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "neos/form": "^5.0",
-        "neos/fusion": ">=7.3"
+        "neos/fusion": "^7.3 || ^8.0 || ^9.0"
     },
     "autoload": {
         "psr-4": {
