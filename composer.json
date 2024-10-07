@@ -4,7 +4,8 @@
     "description": "Flow Form Framework preset for Fusion based Form rendering",
     "license": "MIT",
     "require": {
-        "neos/form": "^5.0"
+        "neos/form": "^5.0",
+        "neos/fusion": "^7.3 || ^8.0 || ^9.0"
     },
     "autoload": {
         "psr-4": {
