@@ -1,20 +1,20 @@
 prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
     tagName = 'form'
 
-    attributes = Neos.Fusion:Attributes {
+    attributes = Neos.Fusion:DataStructure {
         method = 'post'
         enctype = 'multipart/form-data'
         id = ${formRuntime.identifier}
         action = ${request.httpRequest.uri + '#' + formRuntime.identifier}
     }
 
-    content = Neos.Fusion:Array {
-        formHiddenFields = Neos.Fusion:Array {
+    content = Neos.Fusion:Join {
+        formHiddenFields = Neos.Fusion:Join {
             formStateHiddenField = Neos.Form.FusionRenderer:FormStateHiddenField
             @process.wrap = ${'<div style="display:none">' + value + '</div>'}
         }
-        pages = Neos.Fusion:Collection {
-            collection = ${[formRuntime.currentPage]}
+        pages = Neos.Fusion:Loop {
+            items = ${[formRuntime.currentPage]}
             itemName = 'page'
             itemRenderer = Neos.Fusion:Renderer {
                 type = ${page.type}
@@ -27,7 +27,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
 
 prototype(Neos.Form:FormEditMode) < prototype(Neos.Form:Form) {
     content.navigation >
-    content.pages.collection = ${formRuntime.pages}
+    content.pages.items = ${formRuntime.pages}
 }
 
 prototype(Neos.Form.FusionRenderer:FormStateHiddenField) < prototype(Neos.Fusion:Tag) {
