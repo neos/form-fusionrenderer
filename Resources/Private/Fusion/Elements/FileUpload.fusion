@@ -26,6 +26,7 @@ prototype(Neos.Form:FileUpload) < prototype(Neos.Form.FusionRenderer:FormElement
             tagName = 'input'
             attributes {
                 type = 'file'
+                accept = ${Neos.Form.FusionRenderer.getAcceptFromAllowedExtensions(element.properties.allowedExtensions)}
                 name = ${elementName}
             }
         }

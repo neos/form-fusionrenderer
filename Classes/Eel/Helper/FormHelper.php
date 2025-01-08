@@ -13,6 +13,7 @@ use Neos\Form\Core\Model\Renderable\AbstractRenderable;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Utility\ObjectAccess;
+use Symfony\Component\Mime\MimeTypes;
 
 /**
  * Eel Helper with some convenience methods for Fusion based Form rendering
@@ -198,6 +199,32 @@ class FormHelper implements ProtectedContextAwareInterface
     {
         return htmlspecialchars($string, ENT_QUOTES);
     }
+
+	/**
+	 * Get accept string for input attribute accept based on the allowed extensions array
+	 *
+	 * @param array $allowedExtensions
+	 * @param bool $asFileExtension
+	 * @param bool $asMimeType
+	 * @return string
+	 */
+	public function getAcceptFromAllowedExtensions(array $allowedExtensions, bool $asFileExtension = true, bool $asMimeType = true): string {
+		$accept = [];
+
+		foreach ($allowedExtensions as $key => $extension) {
+			if ($asFileExtension) {
+				$accept[] = '.' . $extension;
+			}
+
+			if ($asMimeType) {
+				$mimeTypes = new MimeTypes();
+				$mimeType = $mimeTypes->getMimeTypes($extension);
+				$accept[] = implode(',', $mimeType);
+			}
+		}
+
+		return implode(',', $accept);
+	}
 
     /**
      * @param string $methodName
