@@ -13,6 +13,7 @@ use Neos\Form\Core\Model\Renderable\AbstractRenderable;
 use Neos\Form\Core\Model\Renderable\RootRenderableInterface;
 use Neos\Form\Core\Runtime\FormRuntime;
 use Neos\Utility\ObjectAccess;
+use Symfony\Component\Mime\MimeTypes;
 
 /**
  * Eel Helper with some convenience methods for Fusion based Form rendering
@@ -31,12 +32,6 @@ class FormHelper implements ProtectedContextAwareInterface
      * @var PersistenceManagerInterface
      */
     protected $persistenceManager;
-
-	/**
-	 * @var ?array
-	 * @Flow\InjectConfiguration(path="FusionRenderer.formHelper.mimeTypes", package="Neos.Form")
-	 */
-	protected ?array $mimeTypes;
 
     /**
      * Returns the value of a given Form Element.
@@ -222,11 +217,13 @@ class FormHelper implements ProtectedContextAwareInterface
 			}
 
 			if ($asMimeType) {
-				$accept[] = $this->mimeTypes && array_key_exists($extension, $this->mimeTypes) ? $this->mimeTypes[$extension] : null;
+				$mimeTypes = new MimeTypes();
+				$mimeType = $mimeTypes->getMimeTypes($extension);
+				$accept[] = implode(',', $mimeType);
 			}
 		}
 
-		return implode(', ', $accept);
+		return implode(',', $accept);
 	}
 
     /**
