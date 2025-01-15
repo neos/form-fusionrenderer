@@ -11,6 +11,7 @@ prototype(Neos.Form:FileUpload) < prototype(Neos.Form.FusionRenderer:FormElement
             }
             content = ${elementValue.fileName}
             @if.hasUploadedResource = ${elementValue ? true : false}
+            @if.hasNoValidationErrors = ${!elementHasValidationErrors}
         }
         uploadedResourceHiddenField = Neos.Fusion:Tag {
             @position = 'before field'
