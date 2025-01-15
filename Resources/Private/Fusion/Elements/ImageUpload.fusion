@@ -30,6 +30,7 @@ prototype(Neos.Form:ImageUpload) < prototype(Neos.Form.FusionRenderer:FormElemen
             tagName = 'input'
             attributes {
                 type = 'file'
+                accept = ${Neos.Form.FusionRenderer.getAcceptFromAllowedExtensions(element.properties.allowedTypes)}
                 name = ${elementName + '[resource]'}
             }
         }
