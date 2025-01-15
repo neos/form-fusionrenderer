@@ -14,6 +14,7 @@ prototype(Neos.Form:ImageUpload) < prototype(Neos.Form.FusionRenderer:FormElemen
                 maximumWidth = 200
             }
             @if.hasUploadedImage = ${elementValue ? true : false}
+            @if.hasNoValidationErrors = ${!elementHasValidationErrors}
         }
         uploadedImageHiddenField =  Neos.Fusion:Tag {
             @position = 'before field'
