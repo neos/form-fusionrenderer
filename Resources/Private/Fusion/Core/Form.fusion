@@ -11,6 +11,7 @@ prototype(Neos.Form:Form) < prototype(Neos.Fusion:Tag) {
     content = Neos.Fusion:Join {
         formHiddenFields = Neos.Fusion:Join {
             formStateHiddenField = Neos.Form.FusionRenderer:FormStateHiddenField
+            formCsrfTokenHiddenField = Neos.Form.FusionRenderer:CsrfHiddenField
             @process.wrap = ${'<div style="display:none">' + value + '</div>'}
         }
         pages = Neos.Fusion:Loop {
@@ -39,6 +40,15 @@ prototype(Neos.Form.FusionRenderer:FormStateHiddenField) < prototype(Neos.Fusion
     }
 }
 
+prototype(Neos.Form.FusionRenderer:CsrfHiddenField) < prototype(Neos.Fusion:Tag) {
+    tagName = 'input'
+    attributes {
+        type = 'hidden'
+        name = ${'--' + formRuntime.identifier + '[__csrfToken]'}
+        value = ${Security.csrfToken()}
+    }
+    @if.isAuthenticated = ${Security.isAuthenticated()}
+}
 
 prototype(Neos.Form.FusionRenderer:RenderCallbacks) {
     @class = 'Neos\\Form\\FusionRenderer\\Fusion\\RenderCallbacksImplementation'
